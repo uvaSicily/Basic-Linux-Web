@@ -1,0 +1,51 @@
+insert into StusentFile values('201911534','lyc','woman','20','15')
+insert into StusentFile values('2019555655','ss','man','21','1')--此为插入语句
+--注释用--或者/**/
+select * from StusentFile --查询语句，*代表全部字段
+select StudentNumber,StudentName from StusentFile --查询语句。根据所需内容查询
+select * from StusentFile where StudentNumber = '201911534'--查询关于此学号代表的所有信息
+delete from StusentFile where Age<'20'--删除
+update StusentFile set Age = '19' , male = 'man'
+where StudentNumber = '201911534'--更新
+
+注： StusentFile为自己设置的表
+需检查运行环境是否在自己设置的数据库之中
+StudentNumber,StudentName等等。这些为在表中设置的属性名称
+左键选择代码就可只运行所选择代码
+执行键为F5
+此为测试代码
+在使用“新建查询”时可用，且要注意数据库名称是否为当前数据库
+select * from SudentFile
+select * from ClassFile
+insert into SudentFile values('201911876','林黛玉','02','14566789','D510','红楼梦')
+insert into SudentFile values('201911776','薛宝钗','02','14566789','D510','红楼梦')
+insert into SudentFile values('201911846','王熙凤','02','145667894','D510','红楼梦')
+insert into SudentFile values('201911816','唐僧','01','14566789','D510','西游记')
+insert into SudentFile values('201911896','孙行者','01','14566789','D510','西游记')
+insert into SudentFile values('201911806','铁扇公主','01','14566789','D510','西游记')
+insert into SudentFile values('201911789','牛魔王','01','145667989','D510','西游记')
+insert into SudentFile values('201111806','红孩儿','01','14566789','D510','西游记')
+insert into SudentFile values('201911867','蜘蛛精','01','14566789','D510','西游记')
+insert into SudentFile values('201911889','白骨精','01','14566789','D510','西游记')
+insert into SudentFile values('201911826','贾宝玉','02','145667894','D510','红楼梦')
+insert into SudentFile values('201912456','贾元春','02','145667894','D510','红楼梦')
+insert into SudentFile values('201912423','李白','03','145667894','王者峡谷','王者荣耀')
+insert into SudentFile values('201912487','梦奇','03','145667894','王者峡谷','王者荣耀')
+insert into SudentFile values('201912486','上官婉儿','03','145667894','王者峡谷','王者荣耀')
+insert into SudentFile values('201912424','武则天','03','145667894','王者峡谷','王者荣耀')
+insert into ClassFile values('01','西游记','40')
+insert into ClassFile values('02','红楼梦','40')
+insert into ClassFile values('03','王者荣耀','40')
+delete from SudentFile where SudentNumber = '201911789'
+delete from SudentFile where ClassNumber = '02'
+delete from ClassFile where ClassNumber = '01'
+
+
+CREATE TRIGGER [ABC]ON
+[dbo].[SudentFile]
+FOR Delete
+AS
+declare @CLNumber char(100)
+select @CLNumber = SudentNumber from deleted
+update ClassFile set ClassSize =ClassSize -1
+where (ClassNumber)= (@CLNumber)

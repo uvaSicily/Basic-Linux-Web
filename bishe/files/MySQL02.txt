@@ -1,0 +1,98 @@
+create database ManagementSyt
+use database ManagementSyt
+select * from personFile
+create table lastFile(
+ year varchar(50)  null,
+ major varchar(50)  null,
+ job varchar(50)  null,
+ salary varchar(50)  null,
+office varchar(50)
+
+)
+ insert into lastFile(year,major,job,salary) values('2019','计算机','前端','5000')
+  insert into lastFile(year,major,job,salary) values('2019','计算机','后台','5500')
+   insert into lastFile(year,major,job,salary) values('2018','计算机','前端','5000')
+    insert into lastFile(year,major,job,salary) values('2019','计算机','前端','6000')
+	 insert into lastFile(year,major,job,salary) values('2018','计算机','前端','5550')
+	 insert into lastFile(year,major,job,salary) values('2019','计算机','前端','6100')
+   insert into lastFile(year,major,job,salary) values('2019','软件工程','前端','4500')
+  insert into lastFile(year,major,job,salary) values('2019','软件工程','前端','5500')
+    insert into lastFile(year,major,job,salary) values('2019','软件工程','后台','5600')
+	  insert into lastFile(year,major,job,salary) values('2019','软件工程','前端','5700')
+	    insert into lastFile(year,major,job,salary) values('2019','计算机','后台','5900')
+		update lastFile set office = '暂无' where year='2019'
+		update lastFile set office = '暂无' where year='2018'
+insert into market(area,business,name,linkman,phone,address,profile) values('上海','建筑','上海金桥建筑有限公司','于先生','18892345781','上海金桥路11号','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('武汉','建筑','中南建筑设计院股份有限公司','林先生',' 027-87337159','武汉市武昌区中南二路2号','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('武汉','通信','武汉虹信通信技术有限公司','于先生','18892345666','湖北省武汉市江夏区谭湖二路1号1期','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('武汉','教育','武汉共学教育有限公司','于女士',' 15334172203','湖北省武汉市江夏区光谷科技港14栋','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('重庆','医疗','重庆迈德医疗器械有限公司','秦先生','400-990-232','重庆','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('重庆','建筑','重庆高端门业有限公司','袁先生','18892345781','重庆江津区江津区珞璜工业园区综北大道五号','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','北京东方雨虹防水技术股份有限公司','祁先生','18892666666','北京通州区东方雨虹新材料装备研发总部基地A座3层','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','游戏','北京攸乐科技有限公司','康女士','18834345555','北京朝阳区北辰世纪中心B座6层','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','旅游','日光域（北京）生态科技有限公司','张女士','18834343555','北京朝阳区东方梅地亚中心A座2503','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('长沙','建筑','长沙市木湖山建筑设计事务所','杨女士','15623334564','长沙雨花区金轮·星光名座(香樟东路)金轮星光名座','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','分类信息','中金京银文化（北京）有限公司','刘女士','17134523451','北京昌平区泰华龙旗广场E座16层1619室','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','移动互联网','北京明萃科技有限公司','王女士',' 17187332346','北京朝阳区建外SOHO东区B座B座2804室','我们需要的人才就是你了')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','移动互联网','北京觉非科技有限公司','孙先生',' 11233337159','北京朝阳区中原地产','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','移动互联网','北京哎咆科技有限公司','赵先生',' 17134567159','北京朝阳区华纺易城西区19号楼2-901室','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','北京华构建筑工程设计有限公司','夏女士',' 17187332345','北京朝阳区塞纳维拉水景花园2306','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','金茂慧创建筑科技有限公司','陈先生',' 17187337159','北京西城区中化大厦6层','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','河北筑星毕姆工程设计有限公司','胡女士',' 17187337159','北京海淀区大钟寺中坤广场C座305','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','北京筑科建设集团有限公司','肖先生',' 17187332349','北京朝阳区中国第一商城A座2707','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','建筑','华诚博远工程技术集团有限公司  ','杨先生',' 17187337159','北京西城区庄胜广场中央办公楼北翼(SOGO本馆)北翼13A','欢迎有志之士加入我们')
+
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','广告','北京钜信文化传播有限公司','朱女士',' 17187334559','北京朝阳区领地OFFICEB-505','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','公关','天联互通（北京）文化传播有限公司','马先生',' 17187337159','北京朝阳区SOHO嘉盛中心3303','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','新闻','北京奥特莱鑫文化发展有限公司','杨先生',' 17187337159','北京朝阳区焦奥中心B座1号楼7层705B','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','出版','湖北字符阅动文化传媒有限公司','杨先生',' 17187337159','北京朝阳区绿地中心湖北咸宁咸安区湖北香城文创空间','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','计算机硬件','深圳市国鑫恒运信息安全有限公司北京分公司','杨先生',' 17187334559','北京朝阳区金泉时代广场1号楼1号楼1808','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','计算机硬件','长城超云（北京）科技有限公司','孙先生',' 17187337159','北京昌平区中国电子信息安全技术研发基地a栋','欢迎有志之士加入我们')
+insert into market(area,business,name,linkman,phone,address,profile)
+values('北京','法律','国枫律师事务所（北京）','罗先生',' 17187337159','北京东城区新闻大厦7层','招聘对象：具有法学本科、硕士及以上学历，有证券律师领域相关工作经验3年及以上，主办或全程参与过公司IPO、上市公司并购重组类项目，具有良好的文书写作、对外沟通及团队协作能力，有国内外知名律所工作经验者优先。')
+select year,major,job,b.salary,b.Maxsalary,b.Minsalary from lastFile as A FULL JOIN (
+select salary,MAX(salary) as Maxsalary ,Min(salary) as Minsalary from lastFile group by salary,year,major,salary) b
+on a.salary=b.salary 
+select salary,year,major, Min(salary) as Minsalary,max(salary) as Maxsalary,  job  from lastFile where year='2019' group by year,major,salary ,job order by  Minsalary asc,Maxsalary desc 
+select  Max(salary) as Minsalary from lastFile 
+--truncate table lastFile
+--drop table lastFile
+
+select * from personFile
+select * from lastFile
+delete from personFile where account='201911534'
+select * from market
+select year,major,salary,job,office from lastFile group by year,major,salary,job,office
+
+触发器
+CREATE TRIGGER per_DELETE
+ON [dbo].[personFile]
+AFTER DELETE
+AS
+
+DECLARE @sa AS int,@ma AS char(100),@ye AS int
+SELECT @sa = salary ,@ma =major ,@ye=year FROM inserted
