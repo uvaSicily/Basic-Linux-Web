@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./demo.css">
+    <link rel="stylesheet" href="/MIRI-free/src/vendors/@mdi/font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/MIRI-free/src/css/miri-ui-kit-free.css">
+</head>
+
+<body>
+    <header class="fixed-top">
+        <style>
+            body {
+                font-family: 'Courier New', Courier, monospace;
+            }
+            .bg-transparent {
+                background-color: rgba(85, 104, 245, 0.8) !important;
+            }
+
+            .text {
+                color: rgb(255, 255, 255);
+            }
+
+            .bi {
+                color: rgba(81, 100, 209);
+            }
+            .nav-link,.dropdown-item{
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 18px!important;
+            }
+        </style>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-on-scroll">
+            <div class="container">
+                <p class="text">个人信息</p>
+
+
+                <div class="collapse navbar-collapse" id="miriUiKitNavbar">
+                    <div class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./trun.html" >首页</span></a>
+                        </li>
+
+
+
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                更多
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right ">
+                                <a href="./moon.html" class="dropdown-item"><i
+                                        class="dropdown-item-icon mdi mdi-shape-outline"></i>登录页</a>
+
+                                <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-shield-account-outline"
+                                        onclick="exitu()"></i>安全退出</a>
+                            </div>
+                        </li>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <style>
+            .Profile-header{
+                margin-top: 60px;
+            }
+        </style>
+        <section class="Profile-header text-center">
+            <div>
+                <img id="Userimage" src="/image/2.jpg" alt="profile" class="img-rounded mb-3" width="75" height="75">
+            </div>
+            <p><span class="badge-pill badge-success">学习者</span></p>
+            <h4 id="username">请登录</h4>
+
+            <script>
+                //退出登录
+                function exitu() {
+                    localStorage.removeItem("username");
+                    //刷新部分
+                    load_data();
+                }
+                //退出登录end
+                const username = localStorage.getItem('username');
+                  const usernameElem = document.getElementById('username');
+                //const type=localStorage.getItem('type');
+                //const typeElem = document.getElementById('type');
+                if (username) {
+                    usernameElem.innerHTML = ` ${username}`;
+                }
+            </script>
+            <p class="text-muted" id="school">吉林建筑大学 </p>
+            <p class="profile-intro" id="departName">
+                计算机科学与技术
+            </p>
+            <p class="profile-stats text-center"><span class="h4 mr-1">622</span> 学习时长<span
+                    class="h4 mr-1 ml-4"><span id="learedCount">2</span>
+                    </span> 课程<span class="h4 mr-1 ml-4">18</span> 今日已学时长</p>
+        </section>
+        <section class="profile-details mb-4 pb-4">
+            <div class="row">
+                <div class="col-md-4 sidebar">
+                    <h5 class="sidebar-title">课程</h5>
+
+                    <h5 class="sidebar-title mt-4 pt-3" id="learing">学习课程</h5>
+                    <ul class="contact-list">
+                        <li class="contact-list-item">
+                            <span class="profile-pic away">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-ubuntu" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2.273 9.53a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.547Zm9.467-4.984a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.546ZM7.4 13.108a5.535 5.535 0 0 1-3.775-2.88 3.273 3.273 0 0 1-1.944.24 7.4 7.4 0 0 0 5.328 4.465c.53.113 1.072.169 1.614.166a3.253 3.253 0 0 1-.666-1.9 5.639 5.639 0 0 1-.557-.091Zm3.828 2.285a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.546Zm3.163-3.108a7.436 7.436 0 0 0 .373-8.726 3.276 3.276 0 0 1-1.278 1.498 5.573 5.573 0 0 1-.183 5.535 3.26 3.26 0 0 1 1.088 1.693ZM2.098 3.998a3.28 3.28 0 0 1 1.897.486 5.544 5.544 0 0 1 4.464-2.388c.037-.67.277-1.313.69-1.843a7.472 7.472 0 0 0-7.051 3.745Z" />
+                                </svg></span>
+                            <div class="contact-details">
+                                <p class="contact-name mb-0" id="lessonName">Linux操作系统基础入门</p>
+                                <p class="contact-designation mb-0" id="ViewDate">2023/4</p>
+                            </div>
+                        </li>
+                        <li class="contact-list-item">
+                            <span class="profile-pic online">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-filetype-sh" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M14 4.5V14a2 2 0 0 1-2 2H8v-1h4a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM.111 15.29A1.176 1.176 0 0 1 0 14.84h.765a.578.578 0 0 0 .255.384c.07.049.153.087.249.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.528-.422.224-.1.483-.149.776-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.624.624 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.218.05.406.12.566.211.16.09.285.21.375.358.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm6.67-3.358v4h-.79v-1.715H4.308v1.714h-.792v-3.999h.792v1.626H5.99v-1.626h.791Z" />
+                                </svg></span>
+                            <div class="contact-details">
+                                <p class="contact-name mb-0">Shell</p>
+                                <p class="contact-designation mb-0">2022/12</p>
+                            </div>
+                        </li>
+                        <li class="contact-list-item">
+                            <span class="profile-pic away">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-motherboard" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.5 2a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm2 0a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5Zm-10 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6Zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-6ZM5 3a1 1 0 0 0-1 1h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3Zm0 1h3v3H5V4Zm6.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2Z" />
+                                    <path
+                                        d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2H1Zm1 11a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11Z" />
+                                </svg></span>
+                            <div class="contact-details">
+                                <p class="contact-name mb-0">操作系统及Linux内核</p>
+                                <p class="contact-designation mb-0">2022/9</p>
+                            </div>
+                        </li>
+                        <li class="contact-list-item">
+                            <span class="profile-pic online">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pc-display" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z" />
+                                </svg></span>
+                            <div class="contact-details">
+                                <p class="contact-name mb-0">Linux运维新手课</p>
+                                <p class="contact-designation mb-0">2022/9</p>
+                            </div>
+                        </li>
+                        <li class="contact-list-item">
+                            <span class="profile-pic busy">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-inboxes" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4.98 1a.5.5 0 0 0-.39.188L1.54 5H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0A.5.5 0 0 1 10 5h4.46l-3.05-3.812A.5.5 0 0 0 11.02 1H4.98zm9.954 5H10.45a2.5 2.5 0 0 1-4.9 0H1.066l.32 2.562A.5.5 0 0 0 1.884 9h12.234a.5.5 0 0 0 .496-.438L14.933 6zM3.809.563A1.5 1.5 0 0 1 4.981 0h6.038a1.5 1.5 0 0 1 1.172.563l3.7 4.625a.5.5 0 0 1 .105.374l-.39 3.124A1.5 1.5 0 0 1 14.117 10H1.883A1.5 1.5 0 0 1 .394 8.686l-.39-3.124a.5.5 0 0 1 .106-.374L3.81.563zM.125 11.17A.5.5 0 0 1 .5 11H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0 .5.5 0 0 1 .5-.5h5.5a.5.5 0 0 1 .496.562l-.39 3.124A1.5 1.5 0 0 1 14.117 16H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .121-.393zm.941.83.32 2.562a.5.5 0 0 0 .497.438h12.234a.5.5 0 0 0 .496-.438l.32-2.562H10.45a2.5 2.5 0 0 1-4.9 0H1.066z" />
+                                </svg></span>
+                            <div class="contact-details">
+                                <p class="contact-name mb-0">Linux安装及配置邮件服务器</p>
+                                <p class="contact-designation mb-0">2022/10</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-md-8">
+
+
+                    <h5 class="mt-5 mb-4">笔记 (2)</h5>
+                    <style>
+                        p {
+                            line-height: 25px;
+                        }
+                    </style>
+                    <div class="comment-list">
+                        <div class="comment-list-item">
+                            <div class="comment-list-item-header">
+                                <span class="pro-pic"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-ubuntu" viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.273 9.53a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.547Zm9.467-4.984a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.546ZM7.4 13.108a5.535 5.535 0 0 1-3.775-2.88 3.273 3.273 0 0 1-1.944.24 7.4 7.4 0 0 0 5.328 4.465c.53.113 1.072.169 1.614.166a3.253 3.253 0 0 1-.666-1.9 5.639 5.639 0 0 1-.557-.091Zm3.828 2.285a2.273 2.273 0 1 0 0-4.546 2.273 2.273 0 0 0 0 4.546Zm3.163-3.108a7.436 7.436 0 0 0 .373-8.726 3.276 3.276 0 0 1-1.278 1.498 5.573 5.573 0 0 1-.183 5.535 3.26 3.26 0 0 1 1.088 1.693ZM2.098 3.998a3.28 3.28 0 0 1 1.897.486 5.544 5.544 0 0 1 4.464-2.388c.037-.67.277-1.313.69-1.843a7.472 7.472 0 0 0-7.051 3.745Z" />
+                                    </svg></span>
+                                <div class="user-details">
+                                    <h5 class="user-name">Linux操作系统基础入门</h5>
+                                    <p class="date-published">2023/4/25</p>
+                                </div>
+                                <div>
+                                    <i class="mdi mdi-eye-outline mr-2"></i> 514 <i
+                                        class="mdi mdi-comment-outline ml-3 mr-2"></i> 14
+                                </div>
+                            </div>
+                            <p class="mt-4">Linux，全称GNU/Linux，是一种免费使用和自由传播的类UNIX操作系统，其内核由林纳斯·本纳第克特·托瓦兹（Linus Benedict
+                                Torvalds）于1991年10月5日首次发布，它主要受到Minix和Unix思想的启发，是一个基于POSIX的多用户、多任务、支持多线程和多CPU的操作系统。它支持32位和64位硬件，能运行主要的Unix工具软件、应用程序和网络协议。
+                                Linux继承了Unix以网络为核心的设计思想，是一个性能稳定的多用户网络操作系统。Linux有上百种不同的发行版，如基于社区开发的debian、archlinux，和基于商业开发的Red
+                                Hat Enterprise Linux、SUSE、Oracle Linux等。</p>
+                            <div class="comment-list-item-footer">
+                                <span class="mr-2">10 喜欢</span> | <span class="ml-2">4 回复</span>
+                            </div>
+                        </div>
+                        <div class="comment-list-item">
+                            <div class="comment-list-item-header">
+                                <span class="pro-pic"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-filetype-sh" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M14 4.5V14a2 2 0 0 1-2 2H8v-1h4a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM.111 15.29A1.176 1.176 0 0 1 0 14.84h.765a.578.578 0 0 0 .255.384c.07.049.153.087.249.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.528-.422.224-.1.483-.149.776-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.624.624 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.218.05.406.12.566.211.16.09.285.21.375.358.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm6.67-3.358v4h-.79v-1.715H4.308v1.714h-.792v-3.999h.792v1.626H5.99v-1.626h.791Z" />
+                                    </svg></span>
+                                <div class="user-details">
+                                    <h5 class="user-name">Shell</h5>
+                                    <p class="date-published">2023/4/23</p>
+                                </div>
+                                <div>
+                                    <i class="mdi mdi-eye-outline mr-2"></i> 620 <i
+                                        class="mdi mdi-comment-outline ml-3 mr-2"></i> 30
+                                </div>
+                            </div>
+                            <p class="mt-4">传统意义上的shell指的是命令行式的shell，以后如果不特别注明，shell是指命令行式的shell。
+                                文字操作系统与外部最主要的接口就叫做shell。shell是操作系统最外面的一层。shell管理与操作系统之间的交互：等待你输入，向操作系统解释你的输入，并且处理各种各样的操作系统的输出结果。
+                            </p>
+                            <div class="comment-list-item-footer">
+                                <span class="mr-2"><span class="like">0</span> 喜欢</span> | <span class="ml-2"><span class="ReplyCount">0</span> 回复</span>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+   <!--footer 底栏-->
+        <!--底栏-->
+        <footer>
+            <style>
+                footer {
+                    background-color: rgba(81, 100, 209, .5);
+                    padding: 20px;
+
+                }
+
+                .item-li {
+                    display: inline-block;
+
+                }
+
+                /* 将.col-md-4元素居中 */
+                .col-md-4 {
+                    margin: 0 auto;
+                    text-align: left;
+                    /* 居中后将文本左对齐 */
+                    padding-left: 10%;
+                }
+
+                /* 取消a标签的下划线 */
+                .col-md-4 ul li a {
+                    text-decoration: none;
+                }
+            </style>
+            <div>
+                <ul style="list-style: none; text-align: center;padding-top: 3%;">
+                    <li class="item-li">版权说明 |</li>
+                    <li class="item-li">隐私政策 |</li>
+                    <li class="item-li">用户协议 |</li>
+                    <li class="item-li">服务中心 |</li>
+                    <li class="item-li">不良信息举报</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>关于我们</h4>
+                    <ul class="list-unstyled">
+
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>友站推荐</h4>
+                    <ul class="list-unstyled">
+                        <li><a
+                                href="https://www.zhihuishu.com/?ticket=ST-3750620-fMAdb6qPA2KgdytwX4Pp-passport.zhihuishu.com">智慧树</a>
+                        </li>
+                        <li><a href="https://www.icourse163.org/?from=study">中国大学MOOC</a></li>
+                        <li><a href="https://www.educoder.net/">头歌实践教学平台</a></li>
+
+                        <li><a href="https://pintia.cn/home">PTA</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>常见问题</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">课程要求</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <p style="text-align: center;">网上有害信息举报（涉未成年人）：网站 https://www.12377.cn 电话 010-58581010 邮箱（涉未成年人）</p>
+            <p class="text-center">&copy; Linux操作系统学习网站. All rights reserved.</p>
+
+        </footer>
+    <script src="/js/jquery.js"></script>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

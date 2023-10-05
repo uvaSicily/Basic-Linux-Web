@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题库</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./shouye.css">
+
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+
+
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container-fluid {
+            height: 60px;
+            background-image: linear-gradient(to left, rgba(81, 100, 209, .4), rgba(255, 255, 255));
+        }
+
+        .nav-link,
+        .navbar-brand,
+        .navbar-nav .nav-link.active,
+        .nav-link.disabled {
+            color: rgb(81, 100, 209);
+
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+        }
+
+
+        .fixed-top {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+
+        }
+
+        .bi-search {
+
+
+            vertical-align: middle;
+
+            margin-top: -2px;
+        }
+
+        .search-btn {
+            float: right;
+            width: 100px;
+            height: 34px;
+            background: rgb(81, 100, 209);
+            border-radius: 18px;
+            line-height: 36px;
+            margin: 4px;
+            cursor: pointer;
+            text-align: center;
+
+        }
+
+        .search-btn:hover {
+            opacity: .8;
+        }
+
+        form {
+            margin-right: 40px;
+        }
+
+        .search-btn i {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            color: #fff;
+            margin-left: 6px;
+
+            align-items: center;
+
+
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bishe/moon.html">Linux操作系统学习平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/bishe/trun.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/lesson.html">课程学习</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/jiueye.html">就业信息</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/person.html" id="person">个人信息</a>
+                    </li>
+
+
+                </ul>
+
+                <form class="d-flex bi-search" role="search">
+                    <input class="form-control me-2" type="search" placeholder="输入课程名" aria-label="Search">
+                    <span class="search-btn" onclick="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16" color="white">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                        <i>搜索</i>
+                    </span>
+                </form>
+                <script>
+                    function searchLesson(event) {
+                        event.preventDefault(); // 防止表单默认提交
+
+                        const form = document.getElementById("searchForm");
+                        const keyword = form.querySelector('[name="keyword"]').value;
+
+                        fetch(`http://localhost:5243/api/Search/search?keyword=${keyword}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // 处理返回的数据...
+                                const lessonNames = data.result.map(lesson => lesson.lessonName); // 获取所有课程名
+                                if (lessonNames.length > 0) {
+                                    alert(`找到 ${lessonNames.length} 个符合条件的课程：\n${lessonNames.join("\n")}`);
+                                } else {
+                                    alert("没有找到符合条件的课程。");
+                                }
+                            })
+                            .catch(error => console.error(error));
+                    }
+                </script>
+
+            </div>
+        </div>
+    </nav>
+    <!--主界面-->
+    <style>
+        .main {
+            margin-top: 80px;
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-top: 30px;
+
+        }
+
+        .nav-tabs li {
+            margin-left: 20px;
+        }
+
+        .cd {
+            margin-top: 80px;
+        }
+    </style>
+    <div class="main">
+        <div class="row">
+            <!--left-->
+            <div class="pl-0 col-md-8">
+
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#all">全部</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile">Linux经典面试题</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#contact">算法题库</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="all">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">题库编号</th>
+                                    <th scope="col">题目</th>
+                                    <th scope="col">难度</th>
+                                    <th scope="col">挑战人数</th>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <th scope="row">1</th>
+                                    <td>最短路径</td>
+                                    <td><span class="badge bg-secondary">简单</span></td>
+                                    <td>1233</td>
+                                    <td><a href="./ti/list.html" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>回文日期</td>
+                                    <td><span class="badge bg-secondary">适中</span></td>
+                                    <td>123</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>成绩统计</td>
+                                    <td><span class="badge bg-secondary">简单</span></td>
+                                    <td>12</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>Linux经典面试题</td>
+                                    <td><span class="badge bg-secondary">适中</span></td>
+                                    <td>4</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>生成树计数</td>
+                                    <td><span class="badge bg-secondary">困难</span></td>
+                                    <td>3</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="profile">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">题库编号</th>
+                                    <th scope="col">题目</th>
+                                    <th scope="col">难度</th>
+                                    <th scope="col">挑战人数</th>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <th scope="row">1004</th>
+                                    <td>Linux经典面试题</td>
+                                    <td><span class="badge bg-secondary">适中</span></td>
+                                    <td>4</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="contact">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">题库编号</th>
+                                    <th scope="col">题目</th>
+                                    <th scope="col">难度</th>
+                                    <th scope="col">挑战人数</th>
+                                    <th scope="col">#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>最短路径</td>
+                                    <td><span class="badge bg-secondary">简单</span></td>
+                                    <td>12</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>回文日期</td>
+                                    <td><span class="badge bg-secondary">适中</span></td>
+                                    <td>123</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>成绩统计</td>
+                                    <td><span class="badge bg-secondary">简单</span></td>
+                                    <td>12</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>生成树计数</td>
+                                    <td><span class="badge bg-secondary">困难</span></td>
+                                    <td>3</td>
+                                    <td><a href="" class=" btn btn-primary" role="button">加入挑战</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+<script>
+    // 获取题库数据
+fetch('http://localhost:5243/api/ti')
+  .then(response => response.json())
+  .then(data => {
+    if (data.isSuccess) {
+      // 如果成功获取数据，处理数据并渲染到页面中
+      const tiData = data.result;
+      const tableBody = document.querySelector('#all tbody');
+
+      tiData.forEach(ti => {
+        const newRow = `
+          <tr>
+            <th scope="row">${ti.testId}</th>
+            <td>${ti.testName}</td>
+            <td><span class="badge bg-secondary">${ti.testtype}</span></td>
+            <td>${ti.tests ?? 0}</td>
+            <td><a href="./ti/list.html?testId=${ti.testId}" class="btn btn-primary" role="button">加入挑战</a></td>
+          </tr>`;
+        tableBody.innerHTML += newRow;
+      });
+    } else {
+      // 如果获取数据失败，输出错误消息
+      console.error(`Error retrieving ti data: ${data.message}`);
+    }
+  })
+  .catch(error => console.error(`Error fetching ti data: ${error}`));
+</script>
+
+            </div>
+            <!--right-->
+            <style>
+                .title-text {
+                    box-sizing: border-box;
+                    align-items: center;
+                    text-align: center;
+                    justify-content: space-between;
+                    padding: 20px 20px 0;
+                    width: 90%;
+                    background-image: linear-gradient(to left, rgba(81, 100, 209, .4), rgba(255, 255, 255));
+                }
+
+                .middle {
+                    box-sizing: border-box;
+                    margin: 5px 5px;
+                    padding: 0 20px;
+                    width: 90%;
+                }
+
+                .bottom {
+                    width: 90%;
+
+                }
+
+                .bottom .row {
+                    align-items: center;
+                }
+
+                .pro-pic img {
+                    border-radius: 50%;
+                    width: 48px;
+                    height: 50px;
+                }
+
+                .pro-pics img {
+
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 5px;
+                }
+
+                .score {
+                    padding: 0px !important;
+                }
+
+                .per-item {
+                    margin-top: 10px;
+                }
+            </style>
+            <div class="pl-0 col-md-4">
+
+                <div class="title-text">
+                    <h6>刷题排行榜</h6>
+                </div>
+                <div class="middle">
+                    <div class="card">
+                        <div class="card-body">我已完成
+
+                            <span id="ScoreSum">2</span>
+                            <span>题</span>
+                        </div>
+                    </div>
+                    <script>
+                        const username = localStorage.getItem('username');
+                        fetch(`http://localhost:5243/api/PerScores/${username}`, {
+                            method: 'GET',
+                            headers: { 'Content-Type': 'application/json' }
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                const scoreSumElem = document.getElementById('ScoreSum');
+                                scoreSumElem.textContent = data.result/10;
+                            })
+                            .catch(error => console.error('Error retrieving score:', error));
+                    </script>
+                    </script>
+                </div>
+                <div class="bottom">
+                    <div class="per-item">
+                        <div class="row">
+                            <div class="pro-pic pl-0 col-md-2">
+                                <img src="/image/png/first.png" alt="">
+
+                            </div>
+                            <div class="pro-pic pl-0 col-md-3">
+                                <img src="/image/3.jpg" alt="">
+                            </div>
+                            <div class="pro-name pl-0 col-md-4">ll's</div>
+                            <div class="score pl-0 col-md-3"> 108题</div>
+                        </div>
+
+                    </div>
+                    <div class="per-item">
+                        <div class="row">
+                            <div class="pro-pics pl-0 col-md-2">
+                                <img src="/image/png/second.png" alt="">
+
+                            </div>
+                            <div class="pro-pic pl-0 col-md-3">
+                                <img src="/image/3.jpg" alt="">
+                            </div>
+                            <div class="pro-name pl-0 col-md-4">hhhhh</div>
+                            <div class="score pl-0 col-md-3"> 105题</div>
+                        </div>
+
+                    </div>
+                    <div class="per-item">
+                        <div class="row">
+                            <div class="pro-pics pl-0 col-md-2">
+                                <img src="/image/png/third.png" alt="">
+
+                            </div>
+                            <div class="pro-pic pl-0 col-md-3">
+                                <img src="/image/3.jpg" alt="">
+                            </div>
+                            <div class="pro-name pl-0 col-md-4">无名</div>
+                            <div class="score pl-0 col-md-3"> 96题</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!--footer 底栏-->
+    <!--底栏-->
+    <footer>
+        <style>
+            footer {
+                background-color: rgba(81, 100, 209, .5);
+                padding: 20px;
+
+            }
+
+            .item-li {
+                display: inline-block;
+
+            }
+
+            /* 将.col-md-4元素居中 */
+            .col-md-4 {
+                margin: 0 auto;
+                text-align: left;
+                /* 居中后将文本左对齐 */
+                padding-left: 10%;
+            }
+
+            /* 取消a标签的下划线 */
+            .col-md-4 ul li a {
+                text-decoration: none;
+            }
+        </style>
+        <div>
+            <ul style="list-style: none; text-align: center;padding-top: 3%;">
+                <li class="item-li">版权说明 |</li>
+                <li class="item-li">隐私政策 |</li>
+                <li class="item-li">用户协议 |</li>
+                <li class="item-li">服务中心 |</li>
+                <li class="item-li">不良信息举报</li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>关于我们</h4>
+                <ul class="list-unstyled">
+
+                    <li><a href="#">团队介绍</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>友站推荐</h4>
+                <ul class="list-unstyled">
+                    <li><a
+                            href="https://www.zhihuishu.com/?ticket=ST-3750620-fMAdb6qPA2KgdytwX4Pp-passport.zhihuishu.com">智慧树</a>
+                    </li>
+                    <li><a href="https://www.icourse163.org/?from=study">中国大学MOOC</a></li>
+                    <li><a href="https://www.educoder.net/">头歌实践教学平台</a></li>
+
+                    <li><a href="https://pintia.cn/home">PTA</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>常见问题</h4>
+                <ul class="list-unstyled">
+                    <li><a href="#">课程要求</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <hr>
+        <p style="text-align: center;">网上有害信息举报（涉未成年人）：网站 https://www.12377.cn 电话 010-58581010 邮箱（涉未成年人）</p>
+        <p class="text-center">&copy; Linux操作系统学习网站. All rights reserved.</p>
+
+    </footer>
+
+    <script src="./蜘蛛网特效.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+body {
+    margin: 0;
+    place-content: center;
+    background-position: center;
+    background-attachment: fixed;
+    background: url(/bground/image/bg1.jpg) rgba(0, 0, 0, 0.8);
+    background-size: cover;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.box {
+    background: rgba(254, 254, 254, 0.5);
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    right: 100px;
+    top: 120px;
+    border-radius: 5%;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: inset 0px 0px 20px 20px rgba(81, 100, 209, 0.15);
+}
+
+.login-text {
+    font-size: 20px;
+    padding: 15px;
+    color: rgb(81, 100, 209);
+    position: relative;
+    box-shadow: inset 2px 5px 8px rgb(0, 0, 0, 0.1),
+        inset -5px -5px 8px rgba(255, 255, 255, 0.9),
+        15px 15px 8px rgb(81, 100, 209, 0.08),
+        15px 15px 8px rgb(81, 100, 209, 0.08),
+        inset -5px -5px 8px rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+}
+
+.user {
+    width: 400px;
+    height: 10px;
+  
+    text-align: center;
+    border-radius: 50%;
+    flex-direction: column;
+}
+
+.login-text input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.buttonBox {
+    width: 400px;
+    height: 100px;
+    margin-left: 50px;
+
+}
+
+.button {
+   
+    margin-top: 20px;
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    float: left;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.25s;
+    margin-left: 20px;
+    margin-right: 40px;
+    color: rgb(81, 100, 209);
+    border: hidden;
+    font-size: 20px;
+    border-radius: 44% 56% 65% 35% / 57% 58% 42% 43%;
+    box-shadow: inset 10px 10px 10px rgb(81 100 209 / 5%),
+        5px 5px 10px rgb(81 100 209 / 10%),
+        5px 2px 2px rgb(81 100 209 / 10%),
+        inset -10px -10px 15px rgb(255 255 255 / 50%);
+
+}
+
+.button::after {
+    content: '';
+    position: absolute;
+    border-radius: 44% 56% 65% 35% 57% 58% 42% 43%;
+    transition: 0.5s;
+    box-shadow: inset 10px 10px 10px rgba(0, 0, 0, 0.08),
+        15px 15px 10px rgba(0, 0, 0, 0.08),
+        15px 15px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+.button:hover {
+    border-radius: 50%;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    width: 50px;
+}
+
+.title {
+    font-weight: bold;
+    color: rgb(81, 100, 209);
+    display: block;
+    margin-top: 20px;
+
+}
+
+.text {
+    margin-top: 30px;
+    font-size: 15px;
+    color: rgb(81, 100, 209);
+    background-color: rgb(255 255 255 / 50%);
+    border-radius: 25px;
+    box-shadow: inset -5px -5px 5px rgba(255, 255, 255, 0.1),
+        5px 5px 5px rgba(255, 255, 255, 0.1);
+}
+
+.user input {
+    height: 35px;
+    width: 240px;
+}
+
+.forget {
+    font-size: 18px;
+    position: absolute;
+    right: 10px;
+    color: rgb(81, 100, 209, 0.7);
+
+}
+
+.but {
+ 
+    width: 100px;
+    height: 80px;
+    padding: 5px;
+    float: left;
+    font-weight: bold;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.25s;
+    margin-left: 40px;
+    margin-right: 40px;
+    color: rgb(81, 100, 209);
+    border: hidden;
+    font-size: 20px;
+    border-radius: 44% 56% 65% 35% / 57% 58% 42% 43%;
+    box-shadow: inset 10px 10px 10px rgb(81 100 209 / 5%),
+        5px 5px 10px rgb(81 100 209 / 10%),
+        5px 2px 2px rgb(81 100 209 / 10%),
+        inset -10px -10px 15px rgb(255 255 255 / 50%);
+}
+
+.but:hover {
+    border-radius: 50%;
+}

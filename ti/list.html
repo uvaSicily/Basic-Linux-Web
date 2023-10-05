@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现传入试题数据自动生成网页试卷</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: lightblue;
+            height: 80px;
+            font-size: 24px;
+            line-height: 80px;
+            text-align: center;
+            color: #000;
+        }
+
+        .title {
+            padding: 10px;
+            background: lightseagreen;
+            color: #000;
+        }
+
+        .q-box {
+            padding-left: 20px;
+            height: 30px;
+            line-height: 30px;
+            background: lightblue;
+        }
+
+        .q-opt {
+            display: flex;
+        }
+
+        .item {
+            margin: 10px 36px 20px 10px;
+            padding: 6px 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 27px;
+        }
+
+        .active {
+            border-color: seagreen;
+            color: seagreen;
+        }
+
+        .submit {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .btn {
+            width: 200px;
+            height: 46px;
+            background: lightblue;
+            border: none;
+            border-radius: 23px;
+            outline: none;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .btn:hover {
+            background: lightseagreen;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3 class="header"> 题库 </h3>
+
+    <div class="container">
+        <div class="title">
+            <h4>一、选择题</h4>
+        </div>
+        <div class="content">
+            <ul id="listId">
+                <!-- 这里动态加载数据 -->
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="submit">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="tijiao">
+                提交试卷
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">提示</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            确认提交吗？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                id="quxiao">取消</button>
+                            <button type="button" class="btn btn-primary" id="queren">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h4 style="display: none;">考试的成绩 <span id="resultId" class="label label-success">0</span> </h4>
+    <p style="display: none;">DABCDC</p>
+    </div>
+
+
+    <script>
+        // 试卷数据
+        let data = [
+            {
+                "q": "1.在创建Linux分区时，一定要创建（ ）两个分区",
+                "options": [
+                    {
+                        "name": "A.FAT/NTFS"
+                    },
+                    {
+                        "name": "B.FAT/SWAP"
+                    },
+                    {
+                        "name": "C.NTFS/SWAP"
+                    },
+                    {
+                        "name": "D.SWAP/根分区"
+                    }
+                ],
+                "score": 10,
+                "answer": "D"
+            },
+            {
+                "q": "2.在Red Hat Linux 9 中，系统默认的（）用户对整个系统拥有完全的控制权。",
+                "options": [
+                    {
+                        "name": "A.root "
+                    },
+                    {
+                        "name": "B.guest"
+                    },
+                    {
+                        "name": "C.administrator "
+                    },
+                    {
+                        "name": "D.supervistor"
+                    }
+                ],
+                "score": 10,
+                "answer": "A"
+            },
+            {
+                "q": "3.当登录Linux时，一个具有唯一进程ID号的shell将被调用，这个ID是什么(  )",
+                "options": [
+                    {
+                        "name": "A.NID"
+                    },
+                    {
+                        "name": "B.PID"
+                    },
+                    {
+                        "name": "C.UID"
+                    },
+                    {
+                        "name": "D.CID"
+                    }
+                ],
+                "score": 10,
+                "answer": "B"
+            },
+            {
+                "q": "4.下面哪个命令用来启动X Window",
+                "options": [
+                    {
+                        "name": "A.runx"
+                    },
+                    {
+                        "name": "B.Startx"
+                    },
+                    {
+                        "name": "C.startX"
+                    },
+                    {
+                        "name": "D.xwin"
+                    }
+                ],
+                "score": 10,
+                "answer": "C"
+            },
+            {
+                "q": "5.Samba服务器的配置文件是",
+                "options": [
+                    {
+                        "name": "A.httpd.conf"
+                    },
+                    {
+                        "name": "B.inetd.conf"
+                    },
+                    {
+                        "name": "C.rc.samba"
+                    },
+                    {
+                        "name": "D.smb.conf"
+                    }
+                ],
+                "score": 10,
+                "answer": "D"
+            },
+            {
+                "q": "6.如果用户想对某一命令详细的了解，可用",
+                "options": [
+                    {
+                        "name": "A.ls"
+                    },
+                    {
+                        "name": "B.help"
+                    },
+                    {
+                        "name": "C.man"
+                    },
+                    {
+                        "name": "D.dir"
+                    }
+                ],
+                "score": 10,
+                "answer": "C"
+            }
+        ];
+
+        // 1.创建一个名为Page的class对象
+        class Page {
+            userAnswer = [];//记录用户选择的答案
+            // 2.该对象在实例化时可以接受试卷数据作为参数
+            constructor(data) {
+                this.data = data;
+            }
+            // 3.Page class的实例可以调用init初始化方法，将试卷数据通过DOM操作渲染在页面上成为网页试卷
+            init() {
+                this.data.forEach(function (v, i) {
+                    let q_opt = $('<div class="q-opt"/>');
+                    v['options'].forEach(function (v) {
+                        q_opt.append($('<span class="item">' + v['name'] + '</span>'))
+                    })
+                    $('<li/>')
+                        .append($('<div class="q-box"/>').text(v.q))
+                        .append(q_opt)
+                        .appendTo($('#listId'))
+                })
+                // 4.点击选择题的答案选项，背景高亮，再次点击，取消选择答案
+                $('li span').click((e) => {
+                    let span = $(e.target)
+                    if (span.hasClass('active')) {
+                        span.removeClass('active')
+                    } else {
+                        span.addClass('active').siblings().removeClass('active')
+                    }
+                    this.userAnswer[span.parentsUntil('#listId').eq(1).index()] = span.text().substr(0, 1)
+                })
+                $('#queren').click(() => {
+                    let totalScore = 0;
+                    // 5.所有选择题都勾选了，才可以提交试卷，否则，不可以提交试卷
+                    let n = 0
+
+                    this.userAnswer.forEach(function (v) {
+                        if (v) n++;
+                    })
+                    if (n < this.data.length) {
+                        return alert('答题有遗漏');
+
+                    }
+
+                    // 6.当点击提交试卷，延迟1s后，根据试卷数据提供的答案计算成绩并显示考试结果
+                    this.data.forEach((v, i) => {
+                        if (this.userAnswer[i] == v['answer'])
+                            totalScore += parseInt(v['score'])
+                    })
+                    setTimeout(function () {
+                        $('#resultId').text(totalScore);
+
+                        const userId = localStorage.getItem('username');
+                        const queryParams = new URLSearchParams(window.location.search);
+                        const testId = queryParams.get('testId');
+                        const score = $('#resultId').text();
+                        const scoreTime = new Date().toISOString();
+                        fetch('http://localhost:5243/api/Score', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                userId,
+                                testId,
+                                score,
+                                scoreTime
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => console.log(data))
+                            .catch(error => console.error(error));
+                    })
+                    window.location.href = `./fen.html`;
+                })
+            }
+        }
+
+        const app = new Page(data);
+        app.init();
+
+        // const userId = localStorage.getItem('username');
+        // const queryParams = new URLSearchParams(window.location.search);
+        // const testId = queryParams.get('testId');
+        // const score = $('#resultId').text();
+        // const scoreTime = new Date().toISOString();
+        // fetch('http://localhost:5243/api/Score', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         userId,
+        //         testId,
+        //         score,
+        //         scoreTime
+        //     })
+        // })
+        //     .then(response => response.json())
+        //     .then(data => console.log(data))
+        //     .catch(error => console.error(error));
+    </script>
+</body>
+
+</html>

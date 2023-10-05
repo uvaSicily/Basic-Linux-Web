@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程页</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+    <script src="/bishe/lesson.js"></script>
+    
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container-fluid {
+            height: 60px;
+            background-image: linear-gradient(to left, rgba(81, 100, 209, .4), rgba(255, 255, 255));
+        }
+
+        .nav-link,
+        .navbar-brand,
+        .navbar-nav .nav-link.active,
+        .nav-link.disabled {
+            color: rgb(81, 100, 209);
+
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+        }
+
+
+        .fixed-top {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+
+        }
+
+        .bi-search {
+
+
+            vertical-align: middle;
+
+            margin-top: -2px;
+        }
+
+        .search-btn {
+            float: right;
+            width: 100px;
+            height: 34px;
+            background: rgb(81, 100, 209);
+            border-radius: 18px;
+            line-height: 36px;
+            margin: 4px;
+            cursor: pointer;
+            text-align: center;
+
+        }
+
+        .search-btn:hover {
+            opacity: .8;
+        }
+
+        form {
+            margin-right: 40px;
+        }
+
+        .search-btn i {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            color: #fff;
+            margin-left: 6px;
+
+            align-items: center;
+
+
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bishe/moon.html">Linux操作系统学习平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/bishe/trun.html">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/lesson.html">课程学习</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/jiueye.html">就业信息</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/person.html" id="person">个人信息</a>
+                    </li>
+
+
+                </ul>
+
+                <form class="d-flex bi-search" role="search">
+                    <input class="form-control me-2" type="search" placeholder="输入课程名" aria-label="Search">
+                    <span class="search-btn" onclick="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16" color="white">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                        <i>搜索</i>
+                    </span>
+                </form>
+                <script>
+                    function searchLesson(event) {
+                        event.preventDefault(); // 防止表单默认提交
+
+                        const form = document.getElementById("searchForm");
+                        const keyword = form.querySelector('[name="keyword"]').value;
+
+                        fetch(`http://localhost:5243/api/Search/search?keyword=${keyword}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // 处理返回的数据...
+                                const lessonNames = data.result.map(lesson => lesson.lessonName); // 获取所有课程名
+                                if (lessonNames.length > 0) {
+                                    alert(`找到 ${lessonNames.length} 个符合条件的课程：\n${lessonNames.join("\n")}`);
+                                } else {
+                                    alert("没有找到符合条件的课程。");
+                                }
+                            })
+                            .catch(error => console.error(error));
+                    }
+                </script>
+
+            </div>
+        </div>
+    </nav>
+    <!--简介-->
+    <style>
+        .main-top {
+            margin-top: 60px !important;
+            margin-left: 8%;
+            margin-right: 5%;
+        }
+
+        .w-100 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bg {
+            background-image: linear-gradient(to left, rgba(81, 100, 209, .2), rgba(255, 255, 255));
+
+        }
+    </style>
+    <div class="main-top">
+
+        <div class="row g-0 bg-body-secondary position-relative bg">
+            <div class="col-md-6 mb-md-0 p-md-4">
+                <img src="" class="w-100" alt="..." id="lessonImage">
+            </div>
+            <div class="col-md-6 p-4 ps-md-0">
+                <h5 class="mt-0" id="lessonName">MongoDB基础</h5>
+                <span id="lessonId" style="display: none;">课程id</span>
+                <p style="line-height: 25px;" id="lessonTip">MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。
+                    MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。它支持的数据结构非常松散，是类似json的bson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是它支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。
+                </p>
+                <a class="btn btn-primary" href="/bishe/video/video.html" role="button" id="learn">立即试学</a>
+            </div>
+        </div>
+        <script>
+            const usernam = localStorage.getItem('username');
+
+            const lessones = localStorage.getItem('lessonId');
+
+            fetch(`http://localhost:5243/api/viewLes?lessonId=${(lessones)}&userId=${usernam}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    lessonId: lessones,
+                    userId: usernam// 替换为当前登录用户的 ID
+                })
+            })
+                .then(response => response.json())
+                .then(data => console.log('View recorded:', data))
+                .catch(error => console.error('Error recording view:', error));
+            const learnBtn = document.getElementById('learn');
+
+            learnBtn.addEventListener('click', () => {
+                const lessonId = localStorage.getItem('lessonId');
+                if (lessonId) {
+                    learnBtn.href += `?lessonId=${lessonId}`;
+                }
+            });
+        </script>
+    </div>
+    <!--导航栏-->
+    <div class="row">
+        <style>
+            .row li {
+                float: left;
+                height: 72px;
+                line-height: 72px;
+                width: 104px;
+                font-size: 18px;
+                color: #777;
+                text-align: center;
+                list-style: none;
+                cursor: pointer;
+            }
+        </style>
+        <div class="col-lg-6 grid-margin">
+            <ul class=" nav-tabs" id="myTab1" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab1" data-toggle="tab" href="#jianjie" role="tab"
+                        aria-controls="home1" aria-selected="true">课程简介</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab1" data-toggle="tab" href="#mulu" role="tab"
+                        aria-controls="profile1" aria-selected="false">课程目录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="message-tab1" data-toggle="tab" href="#jieshao" role="tab"
+                        aria-controls="message1" aria-selected="false">教师介绍</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="message-tab1" data-toggle="tab" href="#ziyuan" role="tab"
+                        aria-controls="message1" aria-selected="false">课程资源</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="message-tab1" data-toggle="tab" href="#hudong" role="tab"
+                        aria-controls="message1" aria-selected="false">互动区</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!--主页面-->
+    <div class="MAIN">
+        <style>
+            .MAIN {
+                width: 100%;
+                height: 100%;
+                margin-top: 10px;
+                margin: 0 auto;
+
+            }
+
+            .title-text {
+                margin-top: 10px;
+                height: 30px;
+                font-size: 20px;
+                color: rgb(24, 38, 138);
+
+                background-image: linear-gradient(to right, rgba(81, 100, 209, .3), rgba(255, 255, 255));
+
+            }
+
+            .intro,
+            .catalog,
+            .person,
+            .Reviews {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            p {
+                line-height: 25px;
+            }
+
+            .comment-list-item {
+                margin-top: 10px;
+            }
+
+            .Reviews {
+                margin-top: 20px;
+                width: 80%;
+
+                padding: 30px;
+                border-radius: 5%;
+                box-shadow: inset 0px 0px 7px 0px rgba(81, 100, 209, .5);
+
+            }
+
+            .comment-list {
+                margin-bottom: 20px;
+            }
+        </style>
+        <div class="intro">
+            <div class="title-text">
+                <h5 id="jianjie"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-tags" viewBox="0 0 16 16">
+                        <path
+                            d="M3 2v4.586l7 7L14.586 9l-7-7H3zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2z" />
+                        <path
+                            d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1v5.086z" />
+                    </svg>
+                    课程简介
+                </h5>
+            </div>
+            <div class="detail">
+                <div class="row g-0 bg-body-secondary position-relative bg">
+
+
+                    <p style="line-height: 25px;" id="lessonText">
+                        MongoDB是一个基于分布式文件存储的数据库。由C++语言编写。旨在为WEB应用提供可扩展的高性能数据存储解决方案。
+                        MongoDB是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。它支持的数据结构非常松散，是类似json的bson格式，因此可以存储比较复杂的数据类型。Mongo最大的特点是它支持的查询语言非常强大，其语法有点类似于面向对象的查询语言，几乎可以实现类似关系数据库单表查询的绝大部分功能，而且还支持对数据建立索引。
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="catalog">
+            <div class="title-text">
+                <h5 id="mulu"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-filter-square" viewBox="0 0 16 16">
+                        <path
+                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path
+                            d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                    </svg> 课程目录</h5>
+            </div>
+
+            <div class="list-group" id="Chapters" style="padding: 1%;">
+                <button type="button" class="list-group-item list-group-item-action">
+                    <a href="" class="nav-link">1.1 MongoDB介绍</a>
+                </button>
+                <button type="button" class="list-group-item list-group-item-action">
+                    <a href="" class="nav-link">1.2 MongoDB应用介绍</a> </button>
+                <button type="button" class="list-group-item list-group-item-action">
+                    <a href="" class="nav-link">1.3 MongoDB安装</a></button>
+                <button type="button" class="list-group-item list-group-item-action">
+                    <a href="" class="nav-link">1.4 MongoDB特点</a></button>
+                <button type="button" class="list-group-item list-group-item-action">
+                    <a href="" class="nav-link">1.5 MongoDB的体系结构</a></button>
+            </div>
+            <script>
+                // 获取课程 ID
+                const Id = localStorage.getItem('lessonId');
+
+
+                // 根据课程 ID 发送 POST 请求
+                fetch('http://localhost:5243/api/Chapters', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ Id })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const chaptersElem = document.getElementById('Chapters');
+
+                        // 检查返回数据的格式是否正确
+                        if (data.isSuccess && data.result.length > 0) {
+                            const chapters = data.result;
+
+                            // 清空章节列表
+                            chaptersElem.innerHTML = '';
+
+                            // 填充章节列表
+                            for (let i = 0; i < chapters.length; i++) {
+                                const chapter = chapters[i];
+                                const button = document.createElement('button');
+                                button.setAttribute('type', 'button');
+                                button.setAttribute('class', 'list-group-item list-group-item-action');
+
+                                const a = document.createElement('a');
+                                a.setAttribute('href', '');
+                                a.setAttribute('class', 'nav-link');
+                                a.textContent = ` ${chapter.chapterName}`;
+
+                                button.appendChild(a);
+                                chaptersElem.appendChild(button);
+                            }
+                        } else {
+                            console.error('Error:', data.msg);
+                        }
+                    })
+                    .catch(err => console.error(err));
+            </script>
+        </div>
+
+        <div class="person">
+            <div class="title-text">
+                <h5 id="jieshao"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-vcard" viewBox="0 0 16 16">
+                        <path
+                            d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z" />
+                        <path fill-rule="evenodd"
+                            d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z" />
+                    </svg>教师介绍</h5>
+            </div>
+            <div class="card mb-3" style="max-width: 800px;">
+                <div class="row g-0">
+                    <div class="col-md-4" style="padding: 10px;">
+                        <img src="/image/3.jpg" class="img-fluid rounded-start" alt="..." id="teacherImage"
+                            style="width: 150px;height: 150px;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 id="Name">教师名</h5>
+                            <h4 class="card-title" id="lessonTeacher" style="display: none;">Richa老师</h5>
+
+                                <p class="card-text" id="teacherText">
+                                    在职多年，在MongoDB数据库方面有深入研究。
+                                </p>
+                                <!--  <p class="card-text">
+                                <small class="text-muted">
+                                   
+                                <a href="" class="nav-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                      </svg> 查看老师所有课程</a></small></p>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // 获取当前教师的 ID
+            const lessonTeacher = localStorage.getItem('lessonTeacher');
+            const lessonTeacherElem = document.getElementById('lessonTeacher');
+
+            // 使用 Fetch API 发送 POST 请求
+            fetch('http://localhost:5243/api/teacheres', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lessonTeacher })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    const teacherImage = document.getElementById('teacherImage');
+                    const Name = document.getElementById('Name');
+                    const teacherText = document.getElementById('teacherText');
+
+                    // 检查返回的数据的格式是否正确
+                    if (data.isSuccess && data.result.length > 0) {
+                        const teacher = data.result[0];
+
+                        // 将教师信息填充到相应的 DOM 元素中
+                        teacherImage.src = teacher.teacherImage;
+                        Name.textContent = teacher.name;
+                        if (teacher.teacherText == null) {
+                            teacherText.textContent = "暂无简介";
+                        } else {
+                            teacherText.textContent = teacher.teacherText;
+                        }
+                    } else {
+                        console.error('Error:', data.msg);
+                    }
+                })
+                .catch(err => console.error(err));
+        </script>
+        </script>
+        <div class="person">
+            <div class="title-text">
+                <h5 id="ziyuan"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                        <path
+                            d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                        <path
+                            d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                    </svg> 课程资源</h5>
+            </div>
+            <div id="recources">
+                <div class="overflow-y-auto">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">名称</th>
+                                <th scope="col">类型</th>
+                                <th scope="col">上传人</th>
+                                <th scope="col">时间</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resourceTableBody">
+                            <!-- <tr>
+                                <th scope="row">1.1 MOngoDB介绍</th>
+                                <td>--</td>
+                                <td>林老师</td>
+                                <td>2023/4</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1.2 MongoDB应用介绍</th>
+                                <td>--</td>
+                                <td>林老师</td>
+                                <td>2023/4</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1.3 MongoDB安装</th>
+                                <td colspan="2">--</td>
+                                <td>2023/4</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">1.4 MongoDB特点</th>
+                                <td colspan="2">--</td>
+                                <td>2023/4</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            fetch('http://localhost:5243/api/RecourceSel', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lessonId: Id })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.isSuccess) {
+                        const resources = data.result;
+                        const tableBody = document.getElementById('resourceTableBody');
+                        if (resources.length === 0) { // 如果 result 数组为空，则向页面返回“暂无资源”的提示
+                            const row = document.createElement('tr');
+                            const col = document.createElement('td');
+                            col.textContent = '暂无资源';
+                            col.colSpan = 4; // 设置列跨度，使单元格占据整行
+                            col.style.textAlign = 'center'; // 设置单元格文本居中
+                            row.appendChild(col);
+                            tableBody.appendChild(row);
+                        } else { // 否则按照原有代码逻辑显示资源列表
+                            resources.forEach(resource => {
+                                const row = document.createElement('tr');
+                                const nameCol = document.createElement('td');
+                                nameCol.textContent = resource.resourceName;
+                                row.appendChild(nameCol);
+                                const typeCol = document.createElement('td');
+                                typeCol.textContent = resource.resourceType;
+                                row.appendChild(typeCol);
+                                const upuserCol = document.createElement('td');
+                                upuserCol.textContent = resource.upuser;
+                                row.appendChild(upuserCol);
+                                const timeCol = document.createElement('td');
+                                const date = new Date(resource.uptime);
+                                timeCol.textContent = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+                                row.appendChild(timeCol);
+                                tableBody.appendChild(row);
+                            });
+                        }
+                    } else {
+                        console.error(data.msg);
+                    }
+                })
+                .catch(err => console.error(err));
+        </script>
+
+        <div class="Reviews card">
+            <style>
+                .comment-list-item {
+                    box-shadow: inset 0px 1px 0px 0px rgba(81, 100, 209);
+                    margin-bottom: 20px;
+                    padding-top: 10px;
+                }
+
+                h5 {
+                    margin-bottom: 10px !important;
+                    font-family: STXingkai;
+                }
+
+                .pro-pic img {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                }
+
+                .date-published {
+                    color: #777;
+                    font-size: 15px;
+                }
+
+                .mt-4 {
+                    margin-top: 10px !important;
+                }
+
+                .total {
+                    float: right;
+                    text-align: right;
+                    color: #777;
+                    opacity: 0;
+                    transition: all 0.5;
+                }
+            </style>
+            <div class="title-text">
+
+                <h5 id="hudong"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                        <path
+                            d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path
+                            d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                    </svg>互动区</h5>
+            </div>
+            <div class="relative"> <!-- <div class="comment-list-item">
+                        <div class="comment-list-item-header">
+                            <span class="pro-pic">
+                                <img src="/image/3.jpg" alt="">
+                            </span><i> LIly</i>
+                            <i class="date-published">2023/4/23</i>
+                        </div>
+                        <p class="mt-4">这个课讲得不错
+                        </p>
+                        <div class="comment-list-item-footer">
+                            <span class="mr-2">17 喜欢</span> | <span class="ml-2">8 回复</span>
+                        </div>
+                    </div> -->
+                <div class="comment-list card-body">
+                    <!-- <div class="comment-list-item" id="them omment-list" >
+                        <div class="comment-list-item-header">
+                            <span class="pro-pic">
+                                <img src="/image/5.jpg" alt="" id="Userimage"></span><i id="userId"> Sam</i>
+                            <i class="date-published" id="viewTime">2023/4/25</i>
+                        </div>
+                        <p class="mt-4">老师讲课超级有耐心</p>
+                        <div class="comment-list-item-footer">
+                            <span class="mr-2">10 喜欢</span> | <span class="ml-2">4 回复</span>
+                        </div>
+                    </div> -->
+                    <div class="comment-list" id="comment-list"></div>
+                    <div class="no-comment-msg" id="no-comment-msg">暂无评论</div>
+                    <div class="comment-list-item it" style="display: none;">
+                        <div class="comment-list-item-header">
+                            <span class="pro-pic">
+                                <img src="/image/3.jpg" alt="" id="Userimage">
+                            </span><i id="username"> L78888</i>
+                            <i class="date-published time">2023/4/23</i>
+                        </div>
+                        <p class="tee mt-4">这个课讲得不错
+                        </p>
+                        <div class="comment-list-item-footer">
+                            <span class="mr-2">0 喜欢</span> | <span class="ml-2">0 回复</span>
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 1rem;">
+                        <textarea class="form-control" aria-label="With textarea" placeholder="写一条评论吧"
+                            id="tx"></textarea>
+                    </div>
+                    <div><span class="total">0/200字</span></div>
+                    <a class="btn btn-primary" role="button" style="border-radius: 15%;" onclick="updown()">发表</a>
+                </div>
+
+                <script>
+                    const username = localStorage.getItem('username');
+                    const usernameElem = document.getElementById('username');
+                    //const type=localStorage.getItem('type');
+                    //const typeElem = document.getElementById('type');
+                    if (username) {
+                        usernameElem.innerHTML = ` ${username}`;
+                    }
+                </script>
+
+                <script>
+                    const tx = document.querySelector('#tx');
+                    const total = document.querySelector('.total')
+                    const it = document.querySelector('.it')
+                    const tee = document.querySelector('.tee')
+                    const time = document.querySelector('.time')
+                    const them = document.getElementById('them')
+                    //获得焦点
+                    tx.addEventListener('focus', function () {
+                        total.style.opacity = 1;
+                    })
+                    //失去焦点
+                    tx.addEventListener('blur', function () {
+                        total.style.opacity = 0;
+                    })
+                    tx.addEventListener('input', function () {
+                        total.innerHTML = `${tx.value.length}/200字`
+                    });
+                    tx.addEventListener('keyup', function (e) {
+                        if (e.key === 'Enter') {
+                            if (tx.value.trim() !== '') {
+                                it.style.display = 'block'
+                                //console.log(tx.value);
+                                tee.innerHTML = tx.value;
+                                time.innerHTML = new Date();
+                            } tx.value = '';
+                            total.innerHTML = `0/200字`
+
+                        }
+                    })
+                    const usernames = document.querySelector('#username').innerText;
+                    const lessonIds = localStorage.getItem('lessonId');
+                    function updown() {
+                        const comment = {
+                            userId: usernames,
+                            lessonId: lessonIds,
+                            viewsId: lessonIds + usernames,
+                            viewsText: tx.value,
+                            viewTime: new Date().toISOString(),
+                            viewDate: new Date().toISOString(),
+                            like: 0,
+                            replyCount: 0
+                        };
+
+                        fetch('http://localhost:5243/api/VeiwInsert', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(comment)
+                        })
+                            .then(response => {
+                                if (response.ok) {
+                                    // Comment saved successfully
+                                    it.style.display = 'block';
+                                    tee.innerHTML = tx.value;
+                                    time.innerHTML = comment.viewTime;
+                                    tx.value = '';
+                                    total.innerHTML = `0/200字`;
+                                } else {
+                                    // Error occurred while saving the comment
+                                    console.error('Error:', response.status);
+                                }
+                            });
+                    }
+
+
+                    //评论列表
+
+                    function loadComments(lessonId) {
+                        const body = { lessonId };
+
+                        fetch('http://localhost:5243/api/Views/GetViews', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(body)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.isSuccess) {
+                                    if (data.result.length === 0 || (data.result[0].viewsId == null && data.result[0].viewsText === '暂无')) {
+                                        // 隐藏评论列表并显示“暂无评论”提示信息
+                                        commentList.style.display = 'none';
+                                        noCommentMsg.style.display = 'block';
+                                    } else {
+                                        // 显示评论列表并遍历添加每条评论
+                                        commentList.style.display = 'block';
+                                        noCommentMsg.style.display = 'none';
+
+                                        commentList.innerHTML = '';
+                                        data.result.forEach(comment => {
+                                            if (comment.viewsId == null) {
+                                                return;
+                                            }
+                                            const item = document.createElement('div');
+                                            item.classList.add('comment-list-item');
+
+                                            // 设置评论头部
+                                            const header = document.createElement('div');
+                                            header.classList.add('comment-list-item-header');
+                                            header.innerHTML = `
+                <span class="pro-pic">
+                  <img src="${comment.image}" alt="" id="Userimage">
+                </span><i id="userName">${comment.name}</i>
+                <i class="date-published" id="ViewTime">${comment.viewTime}</i>
+              `;
+                                            item.appendChild(header);
+
+                                            // 设置评论内容
+                                            const text = document.createElement('p');
+                                            text.classList.add('mt-4');
+                                            text.id = 'ViewText';
+                                            text.innerText = comment.viewsText;
+                                            item.appendChild(text);
+
+                                            // 设置评论底部
+                                            const footer = document.createElement('div');
+                                            footer.classList.add('comment-list-item-footer');
+                                            footer.innerHTML = `
+                <span class="mr-2" id="like">${comment.like}</span><span>喜欢</span> | <span class="ml-2" id="reply">${comment.replyCount}</span><span>回复</span>
+              `;
+                                            item.appendChild(footer);
+
+                                            commentList.appendChild(item);
+                                        });
+                                    }
+                                } else {
+                                    console.error('Error:', data.msg);
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
+
+                    // 获取当前课程的 ID
+                    const lessonId = localStorage.getItem('lessonId');
+
+                    // 获取评论列表和“暂无评论”提示信息的 DOM 元素
+                    const commentList = document.getElementById('comment-list');
+                    const noCommentMsg = document.getElementById('no-comment-msg');
+
+                    // 加载评论数据
+                    loadComments(lessonId);
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!--footer 底栏-->
+    <!--底栏-->
+    <footer>
+        <style>
+            footer {
+                background-color: rgba(81, 100, 209, .5);
+                padding: 20px;
+
+            }
+
+            .item-li {
+                display: inline-block;
+
+            }
+
+            /* 将.col-md-4元素居中 */
+            .col-md-4 {
+                margin: 0 auto;
+                text-align: left;
+                /* 居中后将文本左对齐 */
+                padding-left: 10%;
+            }
+
+            /* 取消a标签的下划线 */
+            .col-md-4 ul li a {
+                text-decoration: none;
+            }
+        </style>
+        <div>
+            <ul style="list-style: none; text-align: center;padding-top: 3%;">
+                <li class="item-li">版权说明 |</li>
+                <li class="item-li">隐私政策 |</li>
+                <li class="item-li">用户协议 |</li>
+                <li class="item-li">服务中心 |</li>
+                <li class="item-li">不良信息举报</li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4>关于我们</h4>
+                <ul class="list-unstyled">
+
+                    <li><a href="#">团队介绍</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>友站推荐</h4>
+                <ul class="list-unstyled">
+                    <li><a
+                            href="https://www.zhihuishu.com/?ticket=ST-3750620-fMAdb6qPA2KgdytwX4Pp-passport.zhihuishu.com">智慧树</a>
+                    </li>
+                    <li><a href="https://www.icourse163.org/?from=study">中国大学MOOC</a></li>
+                    <li><a href="https://www.educoder.net/">头歌实践教学平台</a></li>
+
+                    <li><a href="https://pintia.cn/home">PTA</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>常见问题</h4>
+                <ul class="list-unstyled">
+                    <li><a href="#">课程要求</a></li>
+                    <li><a href="#">帮助中心</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <hr>
+        <p style="text-align: center;">网上有害信息举报（涉未成年人）：网站 https://www.12377.cn 电话 010-58581010 邮箱（涉未成年人）</p>
+        <p class="text-center">&copy; Linux操作系统学习网站. All rights reserved.</p>
+
+    </footer>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+    <script src="./蜘蛛网特效.js"></script>
+</body>
+
+</html>

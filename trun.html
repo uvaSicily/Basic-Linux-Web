@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux操作系统学习平台</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./shouye.css">
+    <link rel="stylesheet" href="./index.less">
+
+
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+
+<body>
+    <div class="main">
+        <style>
+            body {
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+            .container-fluid {
+                height: 60px;
+                background-image: linear-gradient(to left, rgba(81, 100, 209, .4), rgba(255, 255, 255));
+            }
+
+            .nav-link,
+            .navbar-brand,
+            .navbar-nav .nav-link.active,
+            .nav-link.disabled {
+                color: rgb(81, 100, 209);
+
+            }
+
+            .navbar-brand {
+                font-size: 22px;
+            }
+
+
+            .fixed-top {
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 0;
+                z-index: 1030;
+
+            }
+
+            .bi-search {
+
+
+                vertical-align: middle;
+
+                margin-top: -2px;
+            }
+
+            .search-btn {
+                float: right;
+                width: 100px;
+                height: 34px;
+                background: rgb(81, 100, 209);
+                border-radius: 18px;
+                line-height: 36px;
+                margin: 4px;
+                cursor: pointer;
+                text-align: center;
+
+            }
+
+            .search-btn:hover {
+                opacity: .8;
+            }
+
+            .search-btn i {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 16px;
+                color: #fff;
+                margin-left: 6px;
+
+                align-items: center;
+            }
+        </style>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/bishe/moon.html">Linux操作系统学习平台</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">首页</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="/bishe/lesson.html">课程学习</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/bishe/jiueye.html">就业信息</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/bishe/person.html" id="person">个人信息</a>
+                        </li>
+                    </ul>
+
+                    <form id="searchForm" class="d-flex bi-search" role="search" onsubmit="searchLesson(event)">
+                        <input class="form-control me-2" type="search" placeholder="输入课程名" aria-label="Search"
+                            name="keyword">
+                        <span class="search-btn" onclick="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16" color="white">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                            <i>搜索</i>
+                        </span>
+                    </form>
+                    <script>
+                        function searchLesson(event) {
+                            event.preventDefault(); // 防止表单默认提交
+
+                            const form = document.getElementById("searchForm");
+                            const keyword = form.querySelector('[name="keyword"]').value;
+
+                            fetch(`http://localhost:5243/api/Search/search?keyword=${keyword}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    // 处理返回的数据...
+                                    const lessonNames = data.result.map(lesson => lesson.lessonName); // 获取所有课程名
+                                    if (lessonNames.length > 0) {
+                                        alert(`找到 ${lessonNames.length} 个符合条件的课程：\n${lessonNames.join("\n")}`);
+                                    } else {
+                                        alert("没有找到符合条件的课程。");
+                                    }
+                                })
+                                .catch(error => console.error(error));
+                        }
+                    </script>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="card col-md-12  carousels">
+            <style>
+                .carousels {
+                    margin-top: 70px;
+                }
+            </style>
+            <div class="card-body">
+                <!--轮播图-->
+
+                <div id="carouselExampleDark" class="carousel carousel-dark slide">
+                    <style>
+                        .carousel-item img {
+                            width: 100%;
+                            height: 100%;
+                            align-items: center;
+                            text-align: center;
+                        }
+
+
+                        h5,
+                        p,
+                        .carousel-control-prev {
+                            color: rgb(255, 255, 255);
+
+                        }
+
+                        .carousel-dark .carousel-control-next-icon,
+                        .carousel-dark .carousel-control-prev-icon {
+                            filter: none !important;
+                        }
+
+                        .carousel-dark .carousel-indicators [data-bs-target] {
+                            background-color: rgb(255, 255, 255);
+                        }
+
+                        .carousel-inner img {
+                            filter: brightness(70%) blur(2px);
+                        }
+
+                        @media (min-width: 768px) {
+                            .carousel-item img {
+                                height: 500px;
+                            }
+                        }
+
+                        @media (max-width: 768px) {
+                            .carousel-item img {
+                                height: 300px;
+                            }
+                        }
+                    </style>
+                    <!--底部指示-->
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <!--图片及文字-->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="5000">
+                            <img src="/image/linux操作.webp" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Linux操作系统及内核</h5>
+                                <p>面向有一定 Linux 与 C 编程基础的用户，推荐用户进行实验之前先学习理论课程。</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="/image/MongoDB.png" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>MongoDB基础</h5>
+                                <p>本课程是 MongoDB 基础教程，介绍了 MongoDB 基本的集合操作、高级查询以及索引与聚合。</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="/image/linux运维.webp" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Linux运维新手入门课</h5>
+                                <p>Linux 运维的新手入门课程，面向完全没有 Linux 基础的同学。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+
+
+            </div>
+            <!--轮播图end-->
+        </div>
+        <div class="col-md-12">
+            <div class="card-body">
+                <section class="pl-0 mb-20px">
+                    <style>
+                        /* .text1 {
+                            color: rgb(0, 0, 0);
+                        } */
+
+                        .link {
+                            text-decoration: none;
+                            color: rgb(81, 100, 209);
+                        }
+
+                        .link:hover {
+                            color: rgb(0, 0, 0, .7);
+                        }
+
+                        /* add new style rules */
+                        .container {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                        }
+
+                        .feature-box {
+
+                            width: 22%;
+                            padding: 10px 15px;
+
+                            margin-bottom: 20px;
+                            box-sizing: border-box;
+                        }
+
+                        @media (max-width: 767px) {
+                            .feature-box {
+                                width: 48%;
+                            }
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="feature-box px-3">
+                            <a href="" class="link">
+                                <h4 class="mb-3">免费课程</h4>
+                            </a>
+                            <!-- <p class="text1">111</p> -->
+                        </div>
+
+                        <div class="feature-box px-3">
+                            <h4 class="mb-3"><a href="" class="link">实战课</a></h4>
+                            <!-- <p class="text1">222</p> -->
+                        </div>
+
+                        <div class="feature-box px-3">
+                            <h4 class="mb-3"><a href="/bishe/shuati.html" aria-current="page" class="link">刷题</a></h4>
+                            <!-- <p class="text1">333</p> -->
+                        </div>
+
+                        <div class="feature-box px-3">
+                            <a href="" class="link">
+                                <h4 class="mb-3">讨论区</h4>
+                            </a>
+                            <!-- <p class="text1">444</p> -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!--中间end-->
+        <!--卡片-->
+        <div class="row ca-t">
+            <style>
+                .ca-t {
+                    margin-left: 5%;
+                    margin-right: 5%;
+                }
+
+                .card-text {
+                    color: rgb(0, 0, 0);
+                    font-size: 16px;
+                }
+
+                .card-img-top {
+                    height: 180px !important;
+                }
+
+                .row {
+                    max-width: 100%;
+                    padding-right: calc(var(--bs-gutter-x) * .5);
+                    padding-left: calc(var(--bs-gutter-x) * .5);
+                    margin-bottom: 20px;
+
+                }
+
+                h4 {
+                    color: rgb(81, 100, 209);
+                }
+
+                .card {
+                    width: 100%;
+                    height: 100%;
+                }
+            </style>
+            <div class="row">
+                <h4> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-award-fill" viewBox="0 0 16 16">
+                        <path
+                            d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z" />
+                        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                    </svg>
+                    今日课程推荐</h4>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/linux操作.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Linux操作系统及内核</h5>
+                            <p class="card-text">面向有一定 Linux 与 C 编程基础的用户，推荐用户进行实验之前先学习理论课程。</p>
+                            <a href="/bishe/lesson.html?lessonName=Linux操作系统及内核" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/多线程.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Linux实现多线程</h5>
+                            <p class="card-text">动手实现一个非常经典的操作系统题目，学习多线程编程，互斥量等基础知识。</p>
+                            <a href="/bishe/lesson.html?lessonName=Linux实现多线程" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/SDN.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">SDN软件定义网络动手实验</h5>
+                            <p class="card-text">使用 mininet 模拟器与 Ryu 控制器，从简单的安装到查看代码的理解原理，从部署简单的拓扑到自定义网络拓扑.</p>
+                            <a href="/bishe/lesson.html?lessonName=SDN软件定义网络动手实验" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-filetype-sh" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M14 4.5V14a2 2 0 0 1-2 2H8v-1h4a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM.111 15.29A1.176 1.176 0 0 1 0 14.84h.765a.578.578 0 0 0 .255.384c.07.049.153.087.249.114.095.028.202.041.319.041.164 0 .302-.023.413-.07a.559.559 0 0 0 .255-.193.507.507 0 0 0 .085-.29.387.387 0 0 0-.153-.326c-.101-.08-.255-.144-.462-.193l-.619-.143a1.72 1.72 0 0 1-.539-.214 1.001 1.001 0 0 1-.351-.367 1.068 1.068 0 0 1-.123-.524c0-.244.063-.457.19-.639.127-.181.303-.322.528-.422.224-.1.483-.149.776-.149.305 0 .564.05.78.152.216.102.383.239.5.41.12.17.186.359.2.566h-.75a.56.56 0 0 0-.12-.258.624.624 0 0 0-.247-.181.923.923 0 0 0-.369-.068c-.217 0-.388.05-.513.152a.472.472 0 0 0-.184.384c0 .121.048.22.143.3a.97.97 0 0 0 .405.175l.62.143c.218.05.406.12.566.211.16.09.285.21.375.358.09.148.135.335.135.56 0 .247-.063.466-.188.656a1.216 1.216 0 0 1-.539.439c-.234.105-.52.158-.858.158-.254 0-.476-.03-.665-.09a1.404 1.404 0 0 1-.478-.252 1.13 1.13 0 0 1-.29-.375Zm6.67-3.358v4h-.79v-1.715H4.308v1.714h-.792v-3.999h.792v1.626H5.99v-1.626h.791Z" />
+                    </svg>
+                    Linux基础
+                </h4>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/linux运维.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Linux运维新手入门课</h5>
+                            <p class="card-text">Linux 运维的新手入门课程，面向完全没有 Linux 基础的同学。</p>
+                            <a href="/bishe/lesson.html?lessonName=Linux运维新手入门课" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/LInux.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Linux基础入门</h5>
+                            <p class="card-text">本课程教你如何熟练地使用Linux，学习 Linux 常用命令，用户与权限管理，目录结构与文件操作等基本知识点。</p>
+                            <a href="/bishe/lesson.html?lessonName=Linux基础入门" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/Ansible.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Ansible基础入门</h5>
+                            <p class="card-text">
+                                Ansible 这个简单易学的自动化工具可以满足业务线在速度和简洁性方面日益增加的需求，让我们更高效的同时管理多台服务器不再是想想而已。</p>
+                            <a href="/bishe/lesson.html?lessonName=Ansible基础入门" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-terminal-x" viewBox="0 0 16 16">
+                        <path
+                            d="M2 3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v4a.5.5 0 0 1-1 0V4a1 1 0 0 0-1-1H2Z" />
+                        <path
+                            d="M3.146 5.146a.5.5 0 0 1 .708 0L5.177 6.47a.75.75 0 0 1 0 1.06L3.854 8.854a.5.5 0 1 1-.708-.708L4.293 7 3.146 5.854a.5.5 0 0 1 0-.708ZM5.5 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5ZM16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-4.854-1.354a.5.5 0 0 0 0 .708l.647.646-.647.646a.5.5 0 0 0 .708.708l.646-.647.646.647a.5.5 0 0 0 .708-.708l-.647-.646.647-.646a.5.5 0 0 0-.708-.708l-.646.647-.646-.647a.5.5 0 0 0-.708 0Z" />
+                    </svg>
+                    Linux实战
+                </h4>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/Ansible平台.webp" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h6 class="card-title">Ansible和Celery运维开发平台实战</h6>
+                            <p class="card-text">主要实现自动化运维方案里的集中化管理的核心部分；可以为运维工作的同学提供一种解决日常工作中批量处理服务器维护性工作的方案.</p>
+                            <a href="/bishe/lesson.html?lessonName=Ansible和Celery运维开发平台实战"
+                                class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/GDB.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">GDB基础入门实战</h5>
+                            <p class="card-text">通过动手实验学习 Linux 上 GCC 编译与 GDB 调试 C 语言程序的基本技巧。分别对 GCC 编译和 GDB 调试进行了详细介绍。
+                            </p>
+                            <a href="/bishe/lesson.html?lessonName=GDB基础入门实战" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/Skynet游戏.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Skynet游戏服务器开发实战</h5>
+                            <p class="card-text">Skynet 是一个使用 C 和 Lua 语言开发的轻量级游戏框架。逐步由浅入深、由易到难开发一个游戏服务器。</p>
+                            <a href="/bishe/lesson.html?lessonName=Skynet游戏服务器开发实战" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-md-12">
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-filetype-sql" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M14 4.5V14a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM0 14.841a1.129 1.129 0 0 0 .401.823c.13.108.288.192.478.252s.411.091.665.091c.338 0 .624-.053.858-.158.237-.106.416-.252.54-.44a1.17 1.17 0 0 0 .187-.656c0-.224-.045-.41-.135-.56a1 1 0 0 0-.375-.357 2.027 2.027 0 0 0-.565-.21l-.621-.144a.97.97 0 0 1-.405-.176.369.369 0 0 1-.143-.299c0-.156.061-.284.184-.384.125-.101.296-.152.513-.152.143 0 .266.022.37.068a.624.624 0 0 1 .245.181.56.56 0 0 1 .12.258h.75a1.092 1.092 0 0 0-.199-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.552.05-.776.15-.225.099-.4.24-.528.421-.127.182-.19.395-.19.639 0 .201.04.376.123.524.082.149.199.27.351.367.153.095.332.167.54.213l.618.144c.207.049.36.113.462.193a.387.387 0 0 1 .153.325c0 .11-.029.207-.085.29A.558.558 0 0 1 2 15.31c-.111.047-.249.07-.413.07-.117 0-.224-.013-.32-.04a.835.835 0 0 1-.248-.115.579.579 0 0 1-.255-.384H0Zm6.878 1.489-.507-.739c.176-.162.31-.362.401-.6.092-.239.138-.507.138-.806v-.501c0-.371-.07-.693-.208-.967a1.495 1.495 0 0 0-.589-.636c-.256-.15-.561-.225-.917-.225-.351 0-.656.075-.914.225-.256.149-.453.36-.592.636a2.138 2.138 0 0 0-.205.967v.5c0 .37.069.691.205.965.139.273.336.485.592.636a1.8 1.8 0 0 0 .914.222 1.8 1.8 0 0 0 .6-.1l.294.422h.788ZM4.262 14.2v-.522c0-.246.038-.456.114-.63a.91.91 0 0 1 .325-.398.885.885 0 0 1 .495-.138c.192 0 .357.046.495.138a.88.88 0 0 1 .325.398c.077.174.115.384.115.63v.522c0 .164-.018.312-.053.445-.035.13-.087.244-.155.34l-.106-.14-.105-.147h-.733l.451.65a.638.638 0 0 1-.251.047.872.872 0 0 1-.487-.147.916.916 0 0 1-.32-.404 1.67 1.67 0 0 1-.11-.644Zm3.986 1.057h1.696v.674H7.457v-3.999h.79v3.325Z" />
+                    </svg>
+                    数据库及网络
+                </h4>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/Mysql.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">MySQL</h5>
+                            <p class="card-text">本课程实验内容从 SQL 概念开始，在 MySQL 数据库中学习并实践了 SQL 常用语法及约束、索引、视图、SELECT
+                                查询、修改与删除等基本操作。</p>
+                            <a href="/bishe/lesson.html?lessonName=MySQL" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/MongoDB.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">MongoDB基础</h5>
+                            <p class="card-text">本课程是 MongoDB 基础教程，介绍了 MongoDB 基本的集合操作、高级查询以及索引与聚合。</p>
+                            <a href="/bishe/lesson.html?lessonName=MongoDB基础" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 stretch-card grid-margin">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/image/MongoDB数据库入门实战.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">MongoDB数据库入门实战</h5>
+                            <p class="card-text">本课程为 MongoDB 数据库的入门课程，希望大家通过一系列实验的学习，能够掌握 MongoDB 数据库的基本操作。</p>
+                            <a href="/bishe/lesson.html?lessonName=MongoDB数据库入门实战" class="btn btn-primary">去学习</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--电梯导航-->
+        <div class="rightFix">
+            <div class="message">
+                <a href="">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-alexa" viewBox="0 0 16 16">
+                        <path
+                            d="M7.996 0A7.998 7.998 0 0 0 0 8a8 8 0 0 0 6.93 7.93v-1.613a1.06 1.06 0 0 0-.717-1.008A5.602 5.602 0 0 1 2.4 7.865 5.579 5.579 0 0 1 8.054 2.4a5.599 5.599 0 0 1 5.535 5.81l-.002.046a6.116 6.116 0 0 1-.012.192l-.005.061a4.85 4.85 0 0 1-.033.284l-.01.068c-.685 4.516-6.564 7.054-6.596 7.068A7.998 7.998 0 0 0 15.992 8 7.998 7.998 0 0 0 7.996.001Z" />
+                    </svg>
+                </a>
+            </div>
+            <a href="" class="message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z" />
+                </svg>
+            </a>
+            <a href="#" data-bs-toggle="tooltip" data-bs-title="如碰到问题请联系客服" class="message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                </svg></a>
+            <a href="#top" class="message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                </svg></a>
+
+
+        </div>
+
+
+        <!--footer 底栏-->
+        <!--底栏-->
+        <footer>
+            <style>
+                footer {
+                    background-color: rgba(81, 100, 209, .5);
+                    padding: 20px;
+
+                }
+
+                .item-li {
+                    display: inline-block;
+
+                }
+
+                /* 将.col-md-4元素居中 */
+                .col-md-4 {
+                    margin: 0 auto;
+                    text-align: left;
+                    /* 居中后将文本左对齐 */
+                    padding-left: 10%;
+                }
+
+                /* 取消a标签的下划线 */
+                .col-md-4 ul li a {
+                    text-decoration: none;
+                }
+            </style>
+            <div>
+                <ul style="list-style: none; text-align: center;padding-top: 3%;">
+                    <li class="item-li">版权说明 |</li>
+                    <li class="item-li">隐私政策 |</li>
+                    <li class="item-li">用户协议 |</li>
+                    <li class="item-li">服务中心 |</li>
+                    <li class="item-li">不良信息举报</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>关于我们</h4>
+                    <ul class="list-unstyled">
+
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>友站推荐</h4>
+                    <ul class="list-unstyled">
+                        <li><a
+                                href="https://www.zhihuishu.com/?ticket=ST-3750620-fMAdb6qPA2KgdytwX4Pp-passport.zhihuishu.com">智慧树</a>
+                        </li>
+                        <li><a href="https://www.icourse163.org/?from=study">中国大学MOOC</a></li>
+                        <li><a href="https://www.educoder.net/">头歌实践教学平台</a></li>
+
+                        <li><a href="https://pintia.cn/home">PTA</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>常见问题</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">课程要求</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <p style="text-align: center;">网上有害信息举报（涉未成年人）：网站 https://www.12377.cn 电话 010-58581010 邮箱（涉未成年人）</p>
+            <p class="text-center">&copy; Linux操作系统学习网站. All rights reserved.</p>
+
+        </footer>
+    </div>
+
+    <script>
+        const person = document.getElementById("person");
+
+        const username = localStorage.getItem('username');
+
+        fetch('http://localhost:5243/api/US/GetUer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username })
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.isSuccess) {
+                    const userType = data.result.usertype;
+                    if (userType === '普通用户') {
+                        person.innerHTML = "个人信息";
+                        const href = new URL("/bishe/person.html", window.location.origin);
+                        href.searchParams.append("username", username);
+                        person.setAttribute("href", href.href);
+                    } else if (userType === '教师') {
+                        person.innerHTML = "教师";
+                        const href = new URL("/bishe/teacher.html", window.location.origin);
+                        href.searchParams.append("username", username);
+                        person.setAttribute("href", href.href);
+                    } else if (userType === '管理员') {
+                        person.innerHTML = "管理员";
+                    }
+                } else {
+                    alert(data.msg);
+                }
+            })
+            .catch(err => console.error(err));
+    </script>
+    <script src="./蜘蛛网特效.js"></script>
+</body>
+
+</html>

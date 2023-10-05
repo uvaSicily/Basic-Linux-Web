@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教师主页</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .container-fluid {
+            height: 60px;
+            background-image: linear-gradient(to left, rgba(81, 100, 209, .4), rgba(255, 255, 255));
+        }
+
+        .nav-link,
+        .navbar-brand,
+        .navbar-nav .nav-link.active,
+        .nav-link.disabled {
+            color: rgb(81, 100, 209);
+
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+        }
+
+
+        .fixed-top {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1030;
+
+        }
+
+        .bi-search {
+
+
+            vertical-align: middle;
+
+            margin-top: -2px;
+        }
+
+        .search-btn {
+            float: right;
+            width: 100px;
+            height: 34px;
+            background: rgb(81, 100, 209);
+            border-radius: 18px;
+            line-height: 36px;
+            margin: 4px;
+            cursor: pointer;
+            text-align: center;
+
+        }
+
+        .search-btn:hover {
+            opacity: .8;
+        }
+
+        form {
+            margin-right: 40px;
+        }
+
+        .search-btn i {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 16px;
+            color: #fff;
+            margin-left: 6px;
+
+            align-items: center;
+
+
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/bishe/moon.html">Linux操作系统学习平台</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/bishe/trun.html">首页</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="/bishe/lesson.html">课程学习</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/bishe/jiueye.html">就业信息</a>
+                    </li>
+
+          
+
+                </ul>
+
+                <form class="d-flex bi-search" role="search">
+                    <input class="form-control me-2" type="search" placeholder="输入课程名" aria-label="Search">
+                    <span class="search-btn" onclick="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16" color="white">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                        <i>搜索</i>
+                    </span>
+                </form>
+                <script>
+                    function searchLesson(event) {
+                        event.preventDefault(); // 防止表单默认提交
+
+                        const form = document.getElementById("searchForm");
+                        const keyword = form.querySelector('[name="keyword"]').value;
+
+                        fetch(`http://localhost:5243/api/Search/search?keyword=${keyword}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                // 处理返回的数据...
+                                const lessonNames = data.result.map(lesson => lesson.lessonName); // 获取所有课程名
+                                if (lessonNames.length > 0) {
+                                    alert(`找到 ${lessonNames.length} 个符合条件的课程：\n${lessonNames.join("\n")}`);
+                                } else {
+                                    alert("没有找到符合条件的课程。");
+                                }
+                            })
+                            .catch(error => console.error(error));
+                    }
+                </script>
+
+            </div>
+        </div>
+    </nav>
+    <style>
+        .t1 {
+            text-align: center;
+            align-items: center;
+            color: rgb(81, 100, 209, 1.8);
+
+        }
+
+        .t1 .card {
+            background-color: rgb(81, 100, 209, .2);
+            filter: brightness(80%);
+        }
+
+        p {
+            margin-top: 5px;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 120px !important;
+            height: 120px;
+            align-items: center;
+            text-align: center;
+            display: inline;
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+
+        .t3 img {
+            width: 80px !important;
+            height: 70px !important;
+            margin: 5px auto;
+
+        }
+
+        .mb-20px {
+            margin-top: 20px;
+        }
+
+        ol {
+            padding-left: 10px;
+            display: flex;
+            list-style-type: none;
+            flex-wrap: wrap;
+        }
+
+        ol li {
+            padding-left: 5px;
+        }
+
+        .main {
+            margin-top: 60px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    </style>
+
+    <div class="main">
+        <div class="row">
+            <div class="pl-0 col-md-4">
+                <div class="mb-20px t1">
+                    <div class="card">
+                        <img src="/image/3.jpg" alt="..." id="teacherImage">
+                        <div class="card-body">
+                            <p class="card-text" id="teachername"> <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                    height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
+                                    <path
+                                        d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z" />
+                                    <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z" />
+                                </svg>
+                                林老师 </p>
+
+                            <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-book-half" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+                                </svg>
+                                <span id="School">暂无任职学校信息</span>
+                                <i> | </i>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-circle" viewBox="0 0 16 16">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                </svg>
+                                <span id="IsEmployed">在职</span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-20px">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-text">班级列表</div>
+                            <ul class="list-group" style="margin-top: 10px;">
+                                <li class="list-group-item" id="DepartName">计算机191班</li>
+                                <li class="list-group-item" id="DepartName">软件工程191班</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-20px t3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>最近访客</p>
+
+                            <ol>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/2.jpg" alt="">
+                                        <p>la's</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/7.jpg" alt="">
+                                        <p>dada</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/6.jpg" alt="">
+                                        <p>dada</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/9.jpg" alt="">
+                                        <p>dada</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/10.jpg" alt="">
+                                        <p>dada</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="view">
+                                        <img src="/image/8.jpg" alt="">
+                                        <p>dada</p>
+                                        <p>2023/4</p>
+                                    </div>
+                                </li>
+                            </ol>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--右边-->
+
+            <div class="pl-0 col-md-8">
+                <style>
+                    .t6 ul li {
+                        font-size: 18px !important;
+                        color: #777;
+                        height: 40px;
+                        line-height: 30px;
+                        width: 120px;
+                        z-index: 1;
+                    }
+
+                    .t6 {
+                        width: 25%;
+                        height: 240px;
+
+                    }
+
+                    .main-right-top {
+                        min-height: 400px;
+                    }
+
+                    .main-right-buttom {
+                        min-height: 300px;
+                    }
+                </style>
+
+                <div class="mb-20px">
+                    <div class="card">
+                        <div class="card-body">
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>管理课程</option>
+                                <option value="1">计算机科学与技术</option>
+                                <option value="2">Web开发</option>
+                                <option value="3">计算机网络</option>
+                            </select>
+                        </div>
+                        <div class="row main-right-top">
+
+                            <div class="t6 pl-0 col-3">
+                                <nav class="flex-column">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#home">课程公告</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#profile">课程设计</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#contact">课程资源</a>
+                                        </li>
+
+                                    </ul>
+
+                                </nav>
+                            </div>
+                            <div class="pl-0 col-9">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="home">
+                                        <div>暂无公告</div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile">
+                                        暂无设计
+                                    </div>
+                                    <div class="tab-pane fade" id="contact">
+
+                                        <style>
+                                            .t4 {
+                                                margin-top: 20px;
+                                            }
+                                        </style>
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">名称</th>
+                                                    <th scope="col">大小</th>
+                                                    <th scope="col">所属人</th>
+                                                    <th scope="col">时间</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1.1计算机网络介绍</th>
+                                                    <td>--</td>
+                                                    <td>林老师</td>
+                                                    <td>2023/4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">1.2拓扑结构</th>
+                                                    <td>--</td>
+                                                    <td>林老师</td>
+                                                    <td>2023/4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">1.3网络和网</th>
+                                                    <td colspan="2">--</td>
+                                                    <td>2023/4</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">1.4 知识点总结</th>
+                                                    <td colspan="2">--</td>
+                                                    <td>2023/4</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="file">
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">添加资源</label>
+                                                <input class="form-control" type="file" id="formFile">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formFileMultiple" class="form-label">添加文件</label>
+                                                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                                            </div>
+                                            <button class="btn btn-primary" id="submit">提交</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="mb-20px ">
+                    <div class="card main-right-buttom">
+                        <div class="card-body">
+                            今日无浏览记录
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer 底栏-->
+        <!--底栏-->
+        <footer>
+            <style>
+                footer {
+                    background-color: rgba(81, 100, 209, .5);
+                    padding: 20px;
+
+                }
+
+                .item-li {
+                    display: inline-block;
+
+                }
+
+                /* 将.col-md-4元素居中 */
+                .col-md-4 {
+                    margin: 0 auto;
+                    text-align: left;
+                    /* 居中后将文本左对齐 */
+                    padding-left: 10%;
+                }
+
+                /* 取消a标签的下划线 */
+                .col-md-4 ul li a {
+                    text-decoration: none;
+                }
+            </style>
+            <div>
+                <ul style="list-style: none; text-align: center;padding-top: 3%;">
+                    <li class="item-li">版权说明 |</li>
+                    <li class="item-li">隐私政策 |</li>
+                    <li class="item-li">用户协议 |</li>
+                    <li class="item-li">服务中心 |</li>
+                    <li class="item-li">不良信息举报</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>关于我们</h4>
+                    <ul class="list-unstyled">
+
+                        <li><a href="#">团队介绍</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>友站推荐</h4>
+                    <ul class="list-unstyled">
+                        <li><a
+                                href="https://www.zhihuishu.com/?ticket=ST-3750620-fMAdb6qPA2KgdytwX4Pp-passport.zhihuishu.com">智慧树</a>
+                        </li>
+                        <li><a href="https://www.icourse163.org/?from=study">中国大学MOOC</a></li>
+                        <li><a href="https://www.educoder.net/">头歌实践教学平台</a></li>
+
+                        <li><a href="https://pintia.cn/home">PTA</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>常见问题</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#">课程要求</a></li>
+                        <li><a href="#">帮助中心</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <hr>
+            <p style="text-align: center;">网上有害信息举报（涉未成年人）：网站 https://www.12377.cn 电话 010-58581010 邮箱（涉未成年人）</p>
+            <p class="text-center">&copy; Linux操作系统学习网站. All rights reserved.</p>
+
+        </footer>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+    <script src="/bootstrap/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+    <script src="./蜘蛛网特效.js"></script>
+    <script>
+        //传递username值
+        const queryParams = new URLSearchParams(location.search);
+        const username = queryParams.get('username');
+        const queryParamsTrun = new URLSearchParams();
+        queryParamsTrun.append('username', username);
+        const trunLink = document.querySelector('.nav-item a[href="/bishe/trun.html"]');
+        trunLink.href = `/bishe/trun.html?${queryParamsTrun}`;
+        //end
+        //退出登录
+        const exitButton = document.getElementById('exit');
+        exitButton.addEventListener('click', function (event) {
+            event.preventDefault(); // 防止默认跳转行为
+
+
+            // 清空本地存储
+            localStorage.clear();
+
+            // 刷新页面
+            location.reload();
+            window.location.href = '/bishe/teacher.html';
+        });
+        //exit end
+        //更新信息
+
+
+        // 发送 HTTP 请求并获取响应
+        fetch('http://localhost:5243/api/Teachers/Getteacher', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // 修改 HTML 页面中的相关数据
+                // 更新教师信息卡片中的相关数据
+                document.querySelector('#teacherImage').src = data.result[0].teacherImage;
+                document.querySelector('#teachername').textContent = data.result[0].name;
+                document.querySelector('#School').textContent = data.result[0].school || '暂无任职学校信息';
+                document.querySelector('#IsEmployed').textContent = data.result[0].isEmployed ? '在职' : '无任职情况';
+
+                // 更新班级列表中的相关数据
+                const departList = document.querySelector('#departList');
+                data.result.forEach(teacher => {
+                    const departName = teacher.departName;
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item');
+                    listItem.textContent = departName;
+                    departList.appendChild(listItem);
+                });
+            });
+
+    </script>
+</body>
+
+</html>

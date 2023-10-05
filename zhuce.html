@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="/bishe/moon.css">
+    <style>
+        .box {
+            width: 450px;
+            height: 480px;
+        }
+
+        .item {
+            width: 180px;
+            height: 38px;
+            align-items: center;
+
+        }
+
+        .error {
+            color: rgb(236, 65, 65);
+            font-weight: bold;
+            font-size: 16px;
+            visibility: hidden;
+        }
+
+        .U1,
+        .U2,
+        .U3 {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h2 class="title">注册</h2>
+        <div id="error"></div>
+        <form class="user" id="login-form">
+            <div class="login-text">
+                <b>账 号 : </b>
+                <input type="text" value placeholder="你的手机号/邮箱" id="username" required>
+                <svg id="U1" class="error U1" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
+            </div>
+            <div class="login-text">
+                <b>密 码 : </b>
+                <input type="password" value placeholder="你的密码" id="password" required>
+                <svg id="U2" class="error U2" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
+            </div>
+            <div class="login-text">
+                <b>确认密码:</b>
+                <input type="password" value placeholder="你的密码" id="repassword" required>
+                <svg id="U3" class="error" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                </svg>
+            </div>
+
+            <div class="login-text">
+                <div id="item" class="item"></div>
+                <b>验证码</b>
+                <input type="text" id="inp">
+
+            </div>
+            <a class="but" id="zhuce" onclick="register()">注册</a>
+            <a href="./moon.html" class="but">返回登录页</a>
+        </form>
+
+    </div>
+    <script src="/bishe/gVerify.js"></script>
+    <script>
+        const loginForm = document.getElementById('login-form');
+        // 新建一个图形验证码对象，以item对象为参数
+        var Item = new GVerify("item");
+        // 调用到button类存入到Btn中
+        var Btn = document.getElementById("zhuce")
+        var Int = document.getElementById("inp")
+
+        // 给Btn添加点击事件
+        Btn.onclick = function () {
+            // 验证input中输入的值和Item中给的随机值是否一致
+            var res = Item.validate(Int.value);
+            if (res) {
+                // 图形验证码通过验证，继续表单验证
+                if (validateForm()) {
+                    // 表单验证通过，执行注册逻辑
+                    register();
+                }
+            } else {
+                // 图形验证码未通过验证，重新生成验证码
+                Item = new GVerify("item");
+                alert("验证码错误");
+            }
+        }
+
+        function validateForm() {
+            // 获取用户名、密码、确认密码、错误信息元素
+            const username = loginForm.username.value;
+            const password = loginForm.password.value;
+            const repassword = loginForm.repassword.value;
+            const error = document.getElementById("error");
+            const U1 = document.getElementById("U1");
+            const U2 = document.getElementById("U2");
+            const U3 = document.getElementById("U3");
+            // 验证用户名不能为空
+            if (!username) {
+                U1.style.visibility = 'visible';
+                error.innerText = "账号不能为空";
+                return false;
+            }
+
+            // 验证密码不能为空
+            if (!password) {
+                U2.style.visibility = 'visible';
+                error.innerText = "密码不能为空";
+                return false;
+            }
+
+            // 验证确认密码不能为空
+            if (!repassword) {
+                U3.style.visibility = 'visible';
+                error.innerText = "确认密码不能为空";
+                return false;
+            }
+
+            // 验证密码和确认密码必须相等
+            if (password !== repassword) {
+
+                U2.style.visibility = 'visible';
+                U3.style.visibility = 'visible';
+                error.innerText = "密码和确认密码必须相等";
+                return false;
+            }
+
+            // 表单验证通过
+            error.innerText = "";
+            return true;
+        }
+
+        function register() {
+            // 获取用户名和密码
+            const username = loginForm.username.value;
+            const password = loginForm.password.value;
+
+            // 发送注册请求
+            fetch('http://localhost:5243/api/Login/Register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.isSuccess) {
+                        // 注册成功，保存用户名并跳转到首页
+                        localStorage.setItem('username', data.result);
+                        localStorage.setItem('usertype',data.type);
+                        alert("注册成功，请返回登录页。")
+                    } else {
+                        // 注册失败，显示错误信息
+                        alert(data.msg)
+                    }
+                })
+                .catch(err => console.error(err));
+        }
+
+
+    </script>
+</body>
+
+</html>

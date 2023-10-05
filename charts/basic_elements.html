@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>message</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="../assets/vendors/select2/select2.min.css" />
+  <link rel="stylesheet" href="../assets/vendors/select2-bootstrap-theme/select2-bootstrap.min.css" />
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="../assets/css/demo_1/style.css" />
+
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item nav-profile border-bottom">
+          <a href="#" class="nav-link flex-column">
+            <div class="nav-profile-image">
+              <img src="/image/2.jpg" alt="profile" />
+              <!--change to offline or busy as needed-->
+            </div>
+            <div class="nav-profile-text d-flex ms-0 mb-3 flex-column">
+              <span class="font-weight-semibold mb-1 mt-2 text-center">管理员</span>
+              <span class="text-secondary icon-sm text-center" id="username">编号：3499</span>
+            </div>
+          </a>
+
+        </li>
+        <script>
+          const username = localStorage.getItem('username');
+          const usernameElem = document.getElementById('username');
+
+          if (username) {
+            usernameElem.innerHTML = `编号： ${username}`;
+          }
+        </script>
+        <li class="nav-item pt-3">
+          <a class="nav-link d-block" href="./trun.html">
+            <img class="sidebar-brand-logo" src="./assets/images/logo.svg" alt="" />
+            <img class="sidebar-brand-logomini" src="./assets/images/logo-mini.svg" alt="" />
+            <div class="small font-weight-light pt-1">网站主页</div>
+          </a>
+          <form class="d-flex align-items-center" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input type="text" class="form-control border-0" placeholder="Search" />
+            </div>
+          </form>
+        </li>
+        <li class="pt-2 pb-1">
+          <span class="nav-item-head">目 录</span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/bishe/message.html">
+            <i class="mdi mdi-compass-outline menu-icon"></i>
+            <span class="menu-title">主操作页</span>
+          </a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="/bishe/charts/basic_elements.html">
+            <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+            <span class="menu-title">Files</span>
+          </a>
+        </li>
+
+
+      </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_settings-panel.html -->
+      <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+      <div id="theme-settings" class="settings-panel">
+        <i class="settings-close mdi mdi-close"></i>
+        <p class="settings-heading">皮肤设置</p>
+        <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+          <div class="img-ss rounded-circle bg-light border me-3"></div>浅色
+        </div>
+        <div class="sidebar-bg-options" id="sidebar-dark-theme">
+          <div class="img-ss rounded-circle bg-dark border me-3"></div>深色
+        </div>
+        <p class="settings-heading mt-2">导航栏颜色</p>
+        <div class="color-tiles mx-0 px-4">
+          <div class="tiles default primary"></div>
+          <div class="tiles success"></div>
+          <div class="tiles warning"></div>
+          <div class="tiles danger"></div>
+          <div class="tiles info"></div>
+          <div class="tiles dark"></div>
+          <div class="tiles light"></div>
+        </div>
+      </div>
+      <!-- partial -->
+      <!-- partial:../../partials/_navbar.html -->
+      <style>
+        .navbar .navbar-menu-wrapper {
+          background-color: rgba(81, 100, 209) !important;
+        }
+
+        .navbar .navbar-menu-wrapper .navbar-toggler {
+          background-color: rgb(58, 73, 168);
+        }
+      </style>
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-chevron-double-left"></span>
+          </button>
+
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown ms-3">
+              <a class="nav-link" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                <i class="mdi mdi-bell-outline"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-left navbar-dropdown preview-list"
+                aria-labelledby="notificationDropdown">
+                <h6 class="px-3 py-3 font-weight-semibold mb-0">提示</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item preview-item">
+                  <div class="preview-thumbnail">
+                    <div class="preview-icon bg-success">
+                      <i class="mdi mdi-calendar"></i>
+                    </div>
+                  </div>
+
+                </a>
+
+
+                <div class="dropdown-divider"></div>
+                <h6 class="p-3 font-13 mb-0 text-primary text-center">View all notifications</h6>
+              </div>
+            </li>
+          </ul>
+
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+            data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">课程管理</h3>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Files</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Files elements </li>
+              </ol>
+            </nav>
+          </div>
+          <div class="row">
+
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">课程基础信息设置</h4>
+                  <p class="card-description">Basic form lessons</p>
+                  <form class="forms-sample" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label for="exampleInputName1">课程号</label>
+                      <input type="text" class="form-control" id="Id" placeholder="课程号" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1">课程名</label>
+                      <input type="text" class="form-control" id="LessonName" placeholder="课程名" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">任课老师</label>
+                      <select class="form-control" id="TeacherName">
+                        <option value="">请选择教师姓名</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">任课老师编号</label>
+                      <input type="text" class="form-control" id="LessonTeacher" placeholder="任课老师编号" readonly />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">课程分类</label>
+                      <select class="form-control" id="LessonType">
+                        <option value="">请选择课程分类</option>
+                        <option value="Linux基础">Linux基础</option>
+                        <option value="Linux实操">Linux实操</option>
+                        <option value="数据库与网络">数据库与网络</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>上传课程资源文件</label>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">文件编号</label>
+                        <input type="text" class="form-control" id="ResourceId" placeholder="文件编号/以科目大写开头" />
+                      </div>
+                      <div class="input-group col-xs-12">
+                        <input class="form-control" type="file" id="ResourceName" multiple><!--文件-->
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button" onclick="uploadFile()">
+                            确定上传</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">简介</label>
+                      <input type="text" class="form-control" id="lessonTip" placeholder="课程简介" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">课程设计</label>
+                      <textarea class="form-control" id="LessonDis" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary me-2" onclick="upload()"> 上传 </button>
+                    <button class="btn btn-light" type="reset" onclick="reqiure()">取消</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <script>
+              //获取教师框数据
+              let data = [];
+              fetch('http://localhost:5243/api/Tea')
+                .then(response => response.json())
+                .then(result => {
+                  data = result;
+                  let select = document.getElementById('TeacherName');
+                  // 将查询结果填充到下拉框中
+                  data.forEach((teacher) => {
+                    let option = document.createElement('option');
+                    option.value = teacher.id;
+                    option.text = teacher.name;
+                    select.add(option);
+                  });
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                });
+              let select = document.getElementById('TeacherName');
+              select.addEventListener('change', (event) => {
+                let teacherName = event.target.options[event.target.selectedIndex].text;
+                let teacherId = '';
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].name === teacherName) {
+                    teacherId = data[i].id;
+                    break;
+                  }
+                }
+                console.log('Teacher name:', teacherName);
+                console.log('Teacher id:', teacherId);
+                document.getElementById('LessonTeacher').value = teacherId;
+              });
+
+              //教师信息end
+
+              //上传文件
+              function uploadFile() {
+                let resourceId = document.getElementById('ResourceId').value.trim();
+                let file = document.getElementById('ResourceName').files[0];
+                let lessonId = document.getElementById('Id').value.trim(); // Get lesson id from input
+
+                if (!resourceId || !file || !lessonId) { // Check if all required fields are filled 
+                  alert('请填写文件编号、选择要上传的文件并填写课程号');
+                  return;
+                }
+
+                // Get user info
+                const username = localStorage.getItem('username');
+                const usernameElem = document.getElementById('username');
+
+                if (username) {
+                  usernameElem.innerHTML = username;
+                } else {
+                  alert('请先登录！');
+                  return;
+                }
+
+                let formData = new FormData();
+                formData.append('file', file);
+                formData.append('resourceId', resourceId);
+                formData.append('lessonId', lessonId); // Add lesson id to form data
+                formData.append('upuser', username || ''); // Add user name to form data, set as empty string if null
+
+                fetch(`http://localhost:5243/api/up/Upload?resourceId=${(resourceId)}&lessonId=${lessonId}&upuser=${username}`, {
+                  method: 'POST',
+                  body: formData
+                })
+                  .then(response => {
+                    if (response.ok) {
+                      document.getElementById('message').innerHTML = '文件上传成功！';
+                    } else {
+                      document.getElementById('message').innerHTML = `文件上传失败：${response.status} ${response.statusText}`;
+                    }
+                  })
+                  .catch(error => {
+                    document.getElementById('message').innerHTML = `文件上传失败：${error.message}`;
+                  });
+              }
+              //上传文件end
+              
+
+            </script>
+            <!-- <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">课程基础信息设置</h4>
+                  <p class="card-description">Basic form lessons</p>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputName1">课程号</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="课程名" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1">课程名</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="课程名" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">任课老师</label>
+                      <select class="form-control" id="exampleSelectGender">
+                        <option>林老师</option>
+                        <option>李老师</option>
+                        <option>何老师</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail3">任课老师编号</label>
+                      <input type="text" class="form-control" id="exampleInputName1" placeholder="老师编号" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleSelectGender">课程分类</label>
+                      <select class="form-control" id="exampleSelectGender">
+                        <option>Linux基础</option>
+                        <option>Linux实操</option>
+                        <option>数据库与网络</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>上传课程资源文件</label>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">文件编号</label>
+                        <input type="text" class="form-control" id="exampleInputName1" placeholder="文件编号/以科目大写开头" />
+                      </div>
+                      <div class="input-group col-xs-12">
+                      <input class="form-control" type="file" id="formFileMultiple" multiple>
+                      
+                        <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button"> 确定上传</button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputCity1">简介</label>
+                      <input type="text" class="form-control" id="exampleInputCity1" placeholder="课程简介" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleTextarea1">课程设计</label>
+                      <textarea class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary me-2"> 上传 </button>
+                    <button class="btn btn-light">取消</button>
+                  </form>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Input size</h4>
+                  <p class="card-description"> Add classes like <code>.form-control-lg</code> and
+                    <code>.form-control-sm</code>.
+                  </p>
+                  <div class="form-group">
+                    <label>Large input</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="Username"
+                      aria-label="Username" />
+                  </div>
+                  <div class="form-group">
+                    <label>Default input</label>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" />
+                  </div>
+                  <div class="form-group">
+                    <label>Small input</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="Username"
+                      aria-label="Username" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Select size</h4>
+                  <p class="card-description"> Add classes like <code>.form-control-lg</code> and
+                    <code>.form-control-sm</code>.
+                  </p>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Large select</label>
+                    <select class="form-control form-control-lg" id="exampleFormControlSelect1">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect2">Default select</label>
+                    <select class="form-control" id="exampleFormControlSelect2">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect3">Small select</label>
+                    <select class="form-control form-control-sm" id="exampleFormControlSelect3">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Select 2</h4>
+                  <div class="form-group">
+                    <label>Single select box using select 2</label>
+                    <select class="js-example-basic-single" style="width: 100%;">
+                      <option value="AL">Alabama</option>
+                      <option value="WY">Wyoming</option>
+                      <option value="AM">America</option>
+                      <option value="CA">Canada</option>
+                      <option value="RU">Russia</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Multiple select using select 2</label>
+                    <select class="js-example-basic-multiple" multiple="multiple" style="width: 100%;">
+                      <option value="AL">Alabama</option>
+                      <option value="WY">Wyoming</option>
+                      <option value="AM">America</option>
+                      <option value="CA">Canada</option>
+                      <option value="RU">Russia</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023 计算机科学与技术
+              毕业设计.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">201911534 <i
+                class="mdi mdi-heart text-danger"></i></span>
+
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../assets/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../assets/vendors/select2/select2.min.js"></script>
+  <script src="../assets/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../assets/js/off-canvas.js"></script>
+  <script src="../assets/js/hoverable-collapse.js"></script>
+  <script src="../assets/js/misc.js"></script>
+  <script src="../assets/js/settings.js"></script>
+  <script src="../assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../assets/js/file-upload.js"></script>
+  <script src="../assets/js/typeahead.js"></script>
+  <script src="../assets/js/select2.js"></script>
+  <!-- End custom js for this page -->
+</body>
+
+</html>

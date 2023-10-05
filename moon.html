@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="/bishe/moon.css">
+    <script src="/js/jquery.js"></script>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1 class="title">Login</h1>
+        <form class="user" id="login-form">
+            <div class="login-text">
+                <b>账 号 : </b>
+                <input type="text" placeholder="你的手机号/邮箱" id="username" required>
+            </div>
+
+            <div class="login-text">
+                <b>密 码 : </b>
+                <input type="password" placeholder="你的密码" id="password" required>
+            </div>
+
+            <a href="/foger.html" class="forget">忘记密码</a>
+            <div class="buttonBox">
+                <a class="button" type="submit" onclick="submit()">
+                    <b>登录</b>
+                </a>
+                <a class="button" href="/bishe/zhuce.html">
+                    <b>注册</b>
+                </a>
+            </div>
+            <div class="text">如果您没有账号请先注册</div>
+
+        </form>
+
+
+    </div>
+
+
+    <script>
+       const loginForm = document.getElementById('login-form');
+
+// 发送登录请求
+function submit() {
+  const username = loginForm.username.value;
+  const password = loginForm.password.value;
+  fetch('http://localhost:5243/api/Login/Check', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ username, password })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.isSuccess) {
+        // 登录成功，保存用户名并跳转到首页
+        localStorage.setItem('username', data.result);
+        localStorage.setItem('usertype', data.type);
+
+        const queryParams = new URLSearchParams();
+        queryParams.append('username', data.result);
+
+        if (data.type === '普通用户') {
+          window.location.href = `/bishe/trun.html?${queryParams}`;
+        } else if (data.type === '教师') {
+          window.location.href = `/bishe/teacher.html?${queryParams}`;
+        } else if (data.type === '管理员') {
+          window.location.href = `/bishe/message.html?${queryParams}`;
+        }
+      } else {
+        alert(data.msg);
+      }
+    })
+    .catch(err => console.error(err));
+};
+    </script>
+
+</body>
+
+</html>
